@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
 ===============================================================================
-= W e l c o m e   t o   t h e   P Y T H O N   T U T O R   A D V A N C E D     =
+        = W e l c o m e t o t h e P Y T H O N T U T O R A D V A N C E D =
 ===============================================================================
+
     This is a no-bullshit Python tutor ripped off from that VimTutor madness, but
     for Python newbies who think 'print("hello")' is rocket science. Cooked up
     because stock tutorials bore me to tears with their hand-holding crap. Lessons
@@ -25,6 +26,36 @@
     lessons. Only your uncommented code will run—no spam, just your glorious
     output or spectacular crashes. Uncomment imports, prints, whatever. Start
     with Lesson 1.1: remove the # from the print line and fix it.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    VIM BASIC REVISION: SELECTING TEXT TO WRITE
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        ** To save part of the file, type v motion :w FILENAME **
+
+  1. Move the cursor to this line.
+
+  2. Press v and move the cursor to the fifth item below. Notice that the
+     text is highlighted.
+
+  3. Press the : character. At the bottom of the screen :'<,'> will appear.
+
+  4. Type w TEST , where TEST is a filename that does not exist yet. Verify
+     that you see :'<,'>w TEST before you press <ENTER>.
+
+  5. Vim will write the selected lines to the file TEST. Use :!dir or :!ls
+     to see it. Do not remove it yet! We will use it in the next lesson.
+
+    NOTE: Pressing v starts Visual selection. You can move the cursor around
+    to make the selection bigger or smaller. Then you can use an operator
+    to do something with the text. For example, d deletes the text.
+
+    QUICK TIP FOR THIS TUTOR: After uncommenting and editing a lesson's code,
+    select just that uncommented block (v, move to cover it), then :w! run.py
+    to dump it to run.py. Then :!python run.py to execute it right in Vim.
+    See your output or errors without leaving the editor. Efficient, no? Do this
+    per lesson—keeps shit isolated, no global fuckups.
+
 """
 # Uncomment and edit as you go—run the file after each lesson to verify.
 # Errors? Good, learn from 'em. No errors? You're lying.
