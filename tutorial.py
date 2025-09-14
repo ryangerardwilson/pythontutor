@@ -64,7 +64,7 @@
 
 # Lesson 1.1: VARIABLES - STORE YOUR CRAP
 # Create a variable 'name' with your name as string, then print "My name is {name}"
-# name = 
+# name = "Linus"
 # print(f"My name is {name}")
 
 
@@ -74,8 +74,8 @@
 
 
 # Lesson 1.2: BASIC MATH
-# Compute 2 + 2 * 3 / 4 - 1 and print the result (should be 1.5)
-# result = 
+# Compute 2 * (2 + 3) / 4 - 1 and print the result (should be 1.5)
+# result = 2 * (2 + 3) / 4 - 1
 # print(result)
 
 
@@ -86,7 +86,7 @@
 # Lesson 1.3: STRINGS AND LISTS
 # Make a list ['apple', 'banana', 'cherry'], add 'date' to end, print the list
 # fruits = ['apple', 'banana', 'cherry']
-# 
+# fruits.append('date')
 # print(fruits)
 
 
@@ -112,7 +112,7 @@
 # Lesson 1.5: FOR LOOPS
 # Loop over [1,2,3,4,5], print each * 2
 # for num in [1,2,3,4,5]:
-#     print()
+#     print(num * 2)
 
 
 
@@ -125,8 +125,10 @@
 # Lesson 1.6: DEFINE A FUNCTION
 # Def greet(name): return f"Hello, {name}!"
 # Then call greet("Linus") and print it
+# Functions? Yeah, because hardcoding everything is for amateurs. Don't screw this up.
+# 
 # def greet(name):
-#     return 
+#     return f"Hello, {name}!"
 # 
 # print(greet("Linus"))
 
@@ -138,22 +140,12 @@
 
 
 
-# Lesson 1.7: READING FILES
-# Write code to open 'test.txt' (create it first with echo "test" > test.txt), read and print content
-# But since temp, just simulate: assume content = "Hello file", print it
-# with open('test.txt', 'r') as f:
-#     content = f.read()
-# print(content)
 
 
 
 
 
-
-
-
-
-# Lesson 1.8: TRY-EXCEPT
+# Lesson 1.7: TRY-EXCEPT
 # Try to divide 10/0, catch ZeroDivisionError, print "Can't divide by zero, idiot"
 # try:
 #     result = 10 / 0
@@ -168,7 +160,7 @@
 
 
 
-# Lesson 1.9: SIMPLE CLASS
+# Lesson 1.8: SIMPLE CLASS
 # Class Dog: def __init__(self, name): self.name = name
 # def bark(self): print(f"{self.name} says woof!")
 # Then dog = Dog("Fido"), dog.bark()
@@ -189,7 +181,7 @@
 
 
 
-# Lesson 1.10: DECORATORS - WRAP YOUR FUNCTIONS LIKE A PRO
+# Lesson 1.9: DECORATORS - WRAP YOUR FUNCTIONS LIKE A PRO
 # Def timer(func): import time; start=time.time(); func(); print(time.time()-start)
 # @timer def slow(): time.sleep(1); print("Done")
 # slow()
@@ -214,7 +206,7 @@
 
 
 
-# Lesson 1.11: GENERATORS - LAZY LISTS, SAVE MEMORY YOU PIG
+# Lesson 1.10: GENERATORS - LAZY LISTS, SAVE MEMORY 
 # Def fib(n): a=0;b=1; while a<n: yield a; a,b = b, a+b
 # Then for i in fib(10): print(i)
 # def fib(n):
