@@ -99,7 +99,7 @@
 # Lesson 1.4: IF STATEMENTS
 # Set age = 25, if age >= 18 print "Adult", else "Kid"
 # age = 25
-# if :
+# if age>=18:
 #     print("Adult")
 # else:
 #     print("Kid")
