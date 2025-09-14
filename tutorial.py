@@ -159,20 +159,21 @@
 
 
 
-
 # Lesson 1.8: SIMPLE CLASS
 # Class Dog: def __init__(self, name): self.name = name
 # def bark(self): print(f"{self.name} says woof!")
 # Then dog = Dog("Fido"), dog.bark()
+# Oh, classes now? Because your code wasn't bloated enough with global variables. Just don't make it a mess like some kernel modules I've seen.
+# 
 # class Dog:
 #     def __init__(self, name):
-#         
+#         self.name = name
+# 
 #     def bark(self):
-#         
+#         print(f"{self.name} says woof!")
 # 
 # dog = Dog("Fido")
 # dog.bark()
-
 
 
 
@@ -185,10 +186,15 @@
 # Def timer(func): import time; start=time.time(); func(); print(time.time()-start)
 # @timer def slow(): time.sleep(1); print("Done")
 # slow()
+# Decorators? Fancy wrapping paper for your sloppy functions. At least this one times how long your crap takes to run—probably forever if you're debugging.
+# 
 # import time
+# 
 # def timer(func):
 #     def wrapper():
-#         
+#         start = time.time()
+#         func()
+#         print(time.time() - start)
 #     return wrapper
 # 
 # @timer
@@ -206,16 +212,25 @@
 
 
 
-# Lesson 1.10: GENERATORS - LAZY LISTS, SAVE MEMORY 
+
+
+
+
+# Lesson 1.10: GENERATORS - LAZY LISTS, SAVE MEMORY
 # Def fib(n): a=0;b=1; while a<n: yield a; a,b = b, a+b
 # Then for i in fib(10): print(i)
+# Generators? Finally, something that doesn't waste memory like your bloated C++ code. Lazy evaluation—because who needs to compute everything upfront when you can pretend you're efficient?
+# 
 # def fib(n):
-#     
+#     a = 0
+#     b = 1
+#     while a < n:
+#         yield a
+#         a, b = b, a + b
 # 
 # for i in fib(10):
 #     print(i)
-
-
+# 
 
 
 
@@ -228,13 +243,41 @@
 # Class Timer: def __enter__(self): self.start=time.time(); return self
 # def __exit__(self, *args): print(time.time()-self.start)
 # with Timer(): time.sleep(1); print("Slept")
+# Context managers? Finally, a way to force your code to clean up after itself without you forgetting like a braindead intern. Automagic cleanup—because who has time for try-finally bullshit?
+# 
+# import time
+# 
 # class Timer:
 #     def __enter__(self):
-#         
+#         self.start = time.time()
+#         return self
+# 
 #     def __exit__(self, *args):
-#         
+#         print(time.time() - self.start)
 # 
 # with Timer():
 #     time.sleep(1)
 #     print("Slept")
+# 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
