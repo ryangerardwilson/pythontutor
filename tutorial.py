@@ -423,7 +423,24 @@
 
 
 
+# ========================= LESSON 3: DATA SCIENCE  =========================
 
+# Lesson 3.1: QUERYING MYSQL INTO DATAFRAMES - DON'T BE A MORON WITH CONNECTIONS
+# SQLAlchemy + explicit 'with' for the win. pip install sqlalchemy mysql-connector-python 
+# -------------------------------------------------------------------------------- 
+# import pandas as pd
+# from sqlalchemy import create_engine
+# 
+# user=''
+# password=''
+# host=''
+# database=''
+# 
+# engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
+# 
+# with engine.connect() as conn:
+#     df = pd.read_sql_query("SELECT * FROM table",conn)
+#   
 
 
 
