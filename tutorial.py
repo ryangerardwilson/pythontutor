@@ -65,7 +65,7 @@
 # Lesson 1.1: VARIABLES - STORE YOUR CRAP
 # Create a variable 'name' with your name as string, then print "My name is {name}"
 # name = "Linus"
-# print(f"My name is {name}")
+# print(f"My name is {name}")           # pydoc print
 
 
 
@@ -184,12 +184,35 @@
 
 
 
-
 # Lesson 2.2: DECORATORS - WRAP YOUR FUNCTIONS LIKE A PRO
-# Def timer(func): import time; start=time.time(); func(); print(time.time()-start)
-# @timer def slow(): time.sleep(1); print("Done")
-# slow()
-# Decorators? Fancy wrapping paper for your sloppy functions. At least this one times how long your crap takes to run—probably forever if you're debugging.
+# Look, in the real world, your functions aren't living in isolation—they're part 
+# of an ecosystem. Sometimes you need to add behavior around them without hacking 
+# up the original code like some amateur surgeon. 
+# 
+# That's where decorators come in: they're syntactic sugar on top of higher-order 
+# functions, letting you inject logging, timing, authentication, or whatever crap 
+# you need without turning your function into a bloated monster. Why bother? 
+#
+# Because rewriting every function to include the same boilerplate is for idiots 
+# who like copy-paste errors and maintenance hell. Decorators keep things DRY 
+# (Don't Repeat Yourself, you slacker), modular, and readable. Imagine debugging 
+# a kernel module without this— you'd be chasing ghosts for weeks. This timer's a 
+# simple example: it wraps your func to measure execution time, so you can spot the 
+# slow-ass bottlenecks before they tank your app. 
+# 
+# Without it, you're flying blind, wondering why your program's "just slow." Use it, 
+# or suffer.
+#
+# What the hell does this decorator actually do in the example? Simple: 
+# - @timer takes your slow() function and replaces it with a wrapper that sneaks in 
+#   a timer. 
+# - When you call slow(), you're not really calling slow() anymore—you're calling the 
+#   wrapper. That bastard starts the clock with time.time(), runs your original slow() 
+#   function (which sleeps for a second and prints "Done"), then stops the clock and 
+#   prints the elapsed time. 
+# - Magic? Nah, just clean code that doesn't pollute your function with timing crap. 
+#   If slow() took 1 second, you'll see something like 1.00012345678 printed after "Done". 
+#   Boom—instant profiling without rewriting a damn thing.
 # 
 # import time
 # 
