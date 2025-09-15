@@ -62,10 +62,46 @@
 
 # ===== LESSON 1: THE BASICS - SAY HELLO OR GTFO =====
 
-# Lesson 1.1: VARIABLES - STORE YOUR CRAP
-# Create a variable 'name' with your name as string, then print "My name is {name}"
-# name = "Linus"
-# print(f"My name is {name}")           # pydoc print
+# Lesson 1.1: VARIABLES AND PYTHON DATA TYPES
+# Variables: snake_case, no keywords. Dynamic typing—Python guesses, you verify 
+# with type(). Covering all built-ins: None, bool, int, float, complex, str, list, 
+# -------------------------------------------------------------------------------- 
+# nothing = None  # NONE: Void value.
+# is_sane = False  # BOOL: True/False (subclass of int).
+# age = 55  # INT: Whole numbers, arbitrary precision.
+# pi = 3.14159  # FLOAT: Decimals (IEEE 754, watch precision).
+# z = 3 + 4j  # COMPLEX: Real + imaginary (j unit).
+# name = "Linus"  # STR: Immutable text (quotes).
+# bugs = [42, "panic", 0.1]  # LIST: Mutable ordered sequence (duplicates OK).
+# coords = (10, 20)  # TUPLE: Immutable ordered sequence.
+# prefs = {"os": "Linux"}  # DICT: Mutable key-value (hashable keys).
+# idiots = {"user1", "user2"}  # SET: Mutable unordered uniques.
+# hell = frozenset(["debug", "monday"])  # FROZENSET: Immutable unordered uniques.
+# 
+# print(f"Nothing: {nothing} ({type(nothing).__name__})")
+# print(f"Sane? {is_sane} ({type(is_sane).__name__})")
+# print(f"Age: {age} ({type(age).__name__})")
+# print(f"Pi: {pi} ({type(pi).__name__})")
+# print(f"Z: {z} ({type(z).__name__})")
+# print(f"Name: '{name}' ({type(name).__name__})")
+# print(f"My name is {name}")
+# print(f"Bugs: {bugs} ({type(bugs).__name__})")
+# print(f"Coords: {coords} ({type(coords).__name__})")
+# print(f"Prefs: {prefs} ({type(prefs).__name__})")
+# print(f"Idiots: {idiots} ({type(idiots).__name__})")
+# print(f"Hell: {hell} ({type(hell).__name__})")
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -75,6 +111,7 @@
 
 # Lesson 1.2: BASIC MATH
 # Compute 2 * (2 + 3) / 4 - 1 and print the result (should be 1.5)
+# -------------------------------------------------------------------------------- 
 # result = 2 * (2 + 3) / 4 - 1
 # print(result)
 
@@ -83,8 +120,19 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 # Lesson 1.3: STRINGS AND LISTS
 # Make a list ['apple', 'banana', 'cherry'], add 'date' to end, print the list
+# -------------------------------------------------------------------------------- 
 # fruits = ['apple', 'banana', 'cherry']
 # fruits.append('date')
 # print(fruits)
@@ -96,8 +144,19 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 # Lesson 1.4: IF STATEMENTS
 # Set age = 25, if age >= 18 print "Adult", else "Kid"
+# -------------------------------------------------------------------------------- 
 # age = 25
 # if age>=18:
 #     print("Adult")
@@ -109,10 +168,31 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 # Lesson 1.5: FOR LOOPS
 # Loop over [1,2,3,4,5], print each * 2
+# -------------------------------------------------------------------------------- 
 # for num in [1,2,3,4,5]:
 #     print(num * 2)
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -126,7 +206,7 @@
 # Def greet(name): return f"Hello, {name}!"
 # Then call greet("Linus") and print it
 # Functions? Yeah, because hardcoding everything is for amateurs. Don't screw this up.
-# 
+# -------------------------------------------------------------------------------- 
 # def greet(name):
 #     return f"Hello, {name}!"
 # 
@@ -147,10 +227,21 @@
 
 # Lesson 1.7: TRY-EXCEPT
 # Try to divide 10/0, catch ZeroDivisionError, print "Can't divide by zero, idiot"
+# -------------------------------------------------------------------------------- 
 # try:
 #     result = 10 / 0
 # except ZeroDivisionError:
 #     print("Can't divide by zero, idiot")
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -167,7 +258,7 @@
 # def bark(self): print(f"{self.name} says woof!")
 # Then dog = Dog("Fido"), dog.bark()
 # Oh, classes now? Because your code wasn't bloated enough with global variables. Just don't make it a mess like some kernel modules I've seen.
-# 
+# -------------------------------------------------------------------------------- 
 # class Dog:
 #     def __init__(self, name):
 #         self.name = name
@@ -177,6 +268,16 @@
 # 
 # dog = Dog("Fido")
 # dog.bark()
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -213,7 +314,7 @@
 # - Magic? Nah, just clean code that doesn't pollute your function with timing crap. 
 #   If slow() took 1 second, you'll see something like 1.00012345678 printed after "Done". 
 #   Boom—instant profiling without rewriting a damn thing.
-# 
+# -------------------------------------------------------------------------------- 
 # import time
 # 
 # def timer(func):
@@ -242,11 +343,21 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 # Lesson 2.3: GENERATORS - LAZY LISTS, SAVE MEMORY
 # Def fib(n): a=0;b=1; while a<n: yield a; a,b = b, a+b
 # Then for i in fib(10): print(i)
 # Generators? Finally, something that doesn't waste memory like your bloated C++ code. Lazy evaluation—because who needs to compute everything upfront when you can pretend you're efficient?
-# 
+# -------------------------------------------------------------------------------- 
 # def fib(n):
 #     a = 0
 #     b = 1
@@ -279,8 +390,10 @@
 # Class Timer: def __enter__(self): self.start=time.time(); return self
 # def __exit__(self, *args): print(time.time()-self.start)
 # with Timer(): time.sleep(1); print("Slept")
-# Context managers? Finally, a way to force your code to clean up after itself without you forgetting like a braindead intern. Automagic cleanup—because who has time for try-finally bullshit?
-# 
+# Context managers? Finally, a way to force your code to clean up after itself without 
+# you forgetting like a braindead intern. Automagic cleanup—because who has time for 
+# try-finally bullshit?
+# -------------------------------------------------------------------------------- 
 # import time
 # 
 # class Timer:
