@@ -431,16 +431,33 @@
 # import pandas as pd
 # from sqlalchemy import create_engine
 # 
-# user=''
-# password=''
-# host=''
-# database=''
+# user = 'root'
+# password = 'password12345'
+# host = 'localhost'
+# database='test'
 # 
 # engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
 # 
 # with engine.connect() as conn:
-#     df = pd.read_sql_query("SELECT * FROM table",conn)
-#   
+#     df = pd.read_sql_query("select * from testtable", conn)
+#     print(df)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
