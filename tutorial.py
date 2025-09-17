@@ -61,11 +61,11 @@
 # Errors? Good, learn from 'em. No errors? You're lying.
 
 # ===== LESSON 1: THE BASICS - SAY HELLO OR GTFO =====
-
 # Lesson 1.1: VARIABLES AND PYTHON DATA TYPES
-# Variables: snake_case, no keywords. Dynamic typing—Python guesses, you verify 
-# with type(). Covering all built-ins: None, bool, int, float, complex, str, list, 
-# -------------------------------------------------------------------------------- 
+# Variables: snake_case, no keywords. Dynamic typing—Python guesses, you verify
+# with type(). Covering all built-ins: None, bool, int, float, complex, str, list,
+# tuple, dict, set, frozenset, range, bytes, bytearray, memoryview, function
+# 
 # nothing = None
 # is_sane = False
 # age = 55
@@ -77,6 +77,14 @@
 # prefs = {"os":"Linux"}
 # idiots = {"user1","user2"}
 # hell = frozenset(["debug", "monday"])
+# r = range(5)
+# b = b'hello'
+# ba = bytearray(b'hello')
+# mv = memoryview(ba)
+# 
+# # And a function, because why not
+# def foo(): pass
+# func = foo
 # 
 # # Print individually like this
 # print(f"Nothing\t:\t{nothing}\t{type(nothing).__name__}")
@@ -85,7 +93,6 @@
 # for variable_name, value in list(locals().items()):
 #     if not variable_name.startswith('__'):
 #         print(f"{variable_name}\t:\t{value}\t{type(value).__name__}")
-
 
 
 
