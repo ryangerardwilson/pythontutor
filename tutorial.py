@@ -66,30 +66,26 @@
 # Variables: snake_case, no keywords. Dynamic typing—Python guesses, you verify 
 # with type(). Covering all built-ins: None, bool, int, float, complex, str, list, 
 # -------------------------------------------------------------------------------- 
-# nothing = None  # NONE: Void value.
-# is_sane = False  # BOOL: True/False (subclass of int).
-# age = 55  # INT: Whole numbers, arbitrary precision.
-# pi = 3.14159  # FLOAT: Decimals (IEEE 754, watch precision).
-# z = 3 + 4j  # COMPLEX: Real + imaginary (j unit).
-# name = "Linus"  # STR: Immutable text (quotes).
-# bugs = [42, "panic", 0.1]  # LIST: Mutable ordered sequence (duplicates OK).
-# coords = (10, 20)  # TUPLE: Immutable ordered sequence.
-# prefs = {"os": "Linux"}  # DICT: Mutable key-value (hashable keys).
-# idiots = {"user1", "user2"}  # SET: Mutable unordered uniques.
-# hell = frozenset(["debug", "monday"])  # FROZENSET: Immutable unordered uniques.
+# nothing = None
+# is_sane = False
+# age = 55
+# pi = 3.14159
+# z = 3 + 4j
+# name = "Linus"
+# bugs = [42, "panic", 0.1]
+# coords = (10,20)
+# prefs = {"os":"Linux"}
+# idiots = {"user1","user2"}
+# hell = frozenset(["debug", "monday"])
 # 
-# print(f"Nothing: {nothing} ({type(nothing).__name__})")
-# print(f"Sane? {is_sane} ({type(is_sane).__name__})")
-# print(f"Age: {age} ({type(age).__name__})")
-# print(f"Pi: {pi} ({type(pi).__name__})")
-# print(f"Z: {z} ({type(z).__name__})")
-# print(f"Name: '{name}' ({type(name).__name__})")
-# print(f"My name is {name}")
-# print(f"Bugs: {bugs} ({type(bugs).__name__})")
-# print(f"Coords: {coords} ({type(coords).__name__})")
-# print(f"Prefs: {prefs} ({type(prefs).__name__})")
-# print(f"Idiots: {idiots} ({type(idiots).__name__})")
-# print(f"Hell: {hell} ({type(hell).__name__})")
+# # Print individually like this
+# print(f"Nothing\t:\t{nothing}\t{type(nothing).__name__}")
+# 
+# # Or, loop over locals like this
+# for variable_name, value in list(locals().items()):
+#     if not variable_name.startswith('__'):
+#         print(f"{variable_name}\t:\t{value}\t{type(value).__name__}")
+
 
 
 
