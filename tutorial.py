@@ -139,12 +139,41 @@
 
 
 
-
-# Lesson 1.5: FOR LOOPS
-# Loop over [1,2,3,4,5], print each * 2
-# -------------------------------------------------------------------------------- 
-# for num in [1,2,3,4,5]:
+# Lesson 1.5: WHILE LOOPS - BECAUSE SOMETIMES YOU DON'T KNOW WHEN TO QUIT, YOU
+# GLUTTON FOR PUNISHMENT While: Loops till a condition's false. Init var,
+# check, do stuff, update—or infinite loop and watch your machine melt.
+# Example: Double 1-5, but with a twist: count down from 10, break early if
+# even. Covers basics, break/continue too.  Pro tip: Always update inside, or
+# you're debugging a toaster.
+# 
+# print("=== Basic while: Double 1-5 ===")
+# num = 1
+# while num <= 5:  # Loops as long as truthy.
 #     print(num * 2)
+#     num += 1  # Update or die trying.
+# 
+# print("\n=== While with break/continue: Countdown from 10, skip evens, stop at 5 ===")
+# count = 10
+# while count > 0:
+#     if count % 2 == 0:  # Even? Skip.
+#         count -= 1
+#         continue
+#     if count == 5:  # Hit 5? Bail.
+#         break
+#     print(f"Count: {count} (doubled: {count * 2})")
+#     count -= 1
+# print("Bailed at 5, you quitter.")
+# 
+# print("\n=== Infinite while? Don't. But here's a safe one with sentinel ===")
+# # Read inputs till 'quit', echo doubled. (Simulated; real input() for you.)
+# inputs = ['3', '7', 'quit']  # Pretend user crap.
+# i = 0
+# while True:
+#     val = inputs[i]
+#     i += 1
+#     if val == 'quit':
+#         break
+#     print(int(val) * 2)
 
 
 
@@ -152,7 +181,52 @@
 
 
 
-# Lesson 1.6: DEFINE A FUNCTION
+# Lesson 1.6: FOR LOOPS - ITERATE OR PERISH, YOU REPETITIVE BASTARD For: Loops
+# over iterables (lists, range, etc.). Cleaner than while for known sequences.
+# Covers: basic list, range (lazy nums), list comps (condensed power),
+# enumerate (idx hack), zip (mash iterables), generators (low-mem yields). All
+# double 1-5.
+# 
+# print("=== Basic for over list ===")
+# for num in [1,2,3,4,5]:  # Grabs each item.
+#     print(num * 2)
+# 
+# print("\n=== Range ===")
+# for num in range(1,6):  # Efficient seq: start, stop (exclusive), step=1.
+#     print(num * 2)
+# 
+# print("\n=== List Comp ===")
+# [print(num * 2) for num in range(1,6)]  # [expr for item in iter]; list-building ninja.
+# 
+# print("\n=== Enumerate ===")
+# for idx, num in enumerate(range(1,6), start=0):  # (idx, item) tuples. No manual counting.
+#     print(f"Idx {idx}: {num * 2}")
+# 
+# print("\n=== Zip ===")
+# evens = [2,4,6,8,10]
+# for doubled in zip(range(1,6), evens):  # Pairs into tuples; shortest rules.
+#     print(doubled[1])
+# 
+# print("\n=== Generator ===")
+# for doubled in (num * 2 for num in range(1,6)):  # (expr for item in iter): Yields lazy, saves RAM.
+#     print(doubled)
+#
+# print("\n=== Generator function ===")
+# def doubled(n):
+#     num = 1
+#     while num <= n:
+#         yield num * 2
+#         num +=1
+#
+# for i in doubled(5):
+#     print(i)
+
+
+
+
+
+
+# Lesson 1.7: DEFINE A FUNCTION
 # Def greet(name): return f"Hello, {name}!"
 # Then call greet("Linus") and print it
 # Functions? Yeah, because hardcoding everything is for amateurs. Don't screw this up.
@@ -168,7 +242,7 @@
 
 
 
-# Lesson 1.7: TRY-EXCEPT
+# Lesson 1.8: TRY-EXCEPT
 # Try to divide 10/0, catch ZeroDivisionError, print "Can't divide by zero, idiot"
 # -------------------------------------------------------------------------------- 
 # try:
@@ -328,44 +402,44 @@
 # import json
 # import random
 # import pandas as pd
-# from sqlalchemy import create_engine
+# from sqlalchemy import create_engine, text
 # from datetime import datetime, timedelta
 # 
 # user = 'root'
 # password = 'password12345'
 # host = 'localhost'
 # database = 'test'
-# 
 # engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
 # 
-# def gen_json(id: int) -> dict:
+# def gen_json(id: int)-> dict:
 #     names = ['Alice', 'Bob', 'Charlie', 'Dana', 'Eve']
 #     user_name = random.choice(names) + f'_{id}'
-#     score = random.randint(50, 200)
+#     score = random.randint(50,200)
 #     active = random.choice([True, False])
-#     num_items = random.randint(2, 5)
-#     items = [f"item{random.randint(1,10)}_{i}" for i in range(1, num_items+1)]
+#     num_items = random.randint(2,5)
+#     items = [f"itm{random.randint(1,10)}_{i}" for i in range(1, num_items+1)]
 #     return {
 #         "user": user_name,
 #         "score": score,
 #         "active": active,
 #         "items": items
-#     }
+#         }
 # 
 # with engine.connect() as conn:
-#     conn.execute("DROP TABLE IF EXISTS testtable")
-#     conn.execute("""
+#     conn.execute(text("DROP TABLE IF EXISTS testtable"))
+#     conn.execute(text("""
 #         CREATE TABLE testtable (
 #             id INT AUTO_INCREMENT PRIMARY KEY,
 #             mobile VARCHAR(20) NOT NULL,
 #             data TEXT,
 #             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-#             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-#         )
-#     """)
-#     mobiles = ['+1-555-1234', '+1-555-5678', '+1-555-9012']
-#     values = [(mobiles[i-1], json.dumps(gen_json(i))) for i in range(1,4)]
-#     conn.executemany("INSERT INTO testtable (mobile, data) VALUES (%s, %s)", values)
+#             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE
+#             CURRENT_TIMESTAMP
+#             )
+#     """))
+#     mobiles = ['1111111111','2222222222','3333333333']
+#     values = [{'mobile': mobiles[i-1], 'data': json.dumps(gen_json(i))} for i in range(1, 4)]
+#     conn.execute(text("INSERT INTO testtable (mobile, data) VALUES (:mobile, :data)"), values)
 #     conn.commit()
 
 
@@ -378,24 +452,23 @@
 # --------------------------------------------------------------------------------
 # One-hour cache. Query if stale.
 #
-# import os 
-# import pandas as pd 
-# from sqlalchemy import create_engine 
-# from datetime import datetime, timedelta 
-#
+# import os
+# import pandas as pd
+# from sqlalchemy import create_engine
+# from datetime import datetime, timedelta
+# 
 # user = 'root'
 # password = 'password12345'
 # host = 'localhost'
 # database = 'test'
-#
 # engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
-#
+# 
 # cache_file = 'data_cache.csv'
 # cache_h = 1
 # 
 # def get_df() -> pd.DataFrame:
 #     if os.path.exists(cache_file):
-#         age = datetime.now() - datetime.fromtimestamp(os.path.getmtime(cache_file))
+#         age = datetime.now() - datetime.fromtimestmap(os.path.getmtime(cache_file))
 #         if age < timedelta(hours=cache_h): return pd.read_csv(cache_file)
 #     with engine.connect() as conn:
 #         df = pd.read_sql_query("SELECT * FROM testtable", conn)
