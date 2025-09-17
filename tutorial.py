@@ -97,32 +97,11 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 # Lesson 1.2: BASIC MATH
 # Compute 2 * (2 + 3) / 4 - 1 and print the result (should be 1.5)
 # -------------------------------------------------------------------------------- 
 # result = 2 * (2 + 3) / 4 - 1
 # print(result)
-
-
-
-
-
-
-
-
-
 
 
 
@@ -136,17 +115,6 @@
 # fruits = ['apple', 'banana', 'cherry']
 # fruits.append('date')
 # print(fruits)
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -169,32 +137,11 @@
 
 
 
-
-
-
-
-
-
-
-
-
 # Lesson 1.5: FOR LOOPS
 # Loop over [1,2,3,4,5], print each * 2
 # -------------------------------------------------------------------------------- 
 # for num in [1,2,3,4,5]:
 #     print(num * 2)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -218,13 +165,6 @@
 
 
 
-
-
-
-
-
-
-
 # Lesson 1.7: TRY-EXCEPT
 # Try to divide 10/0, catch ZeroDivisionError, print "Can't divide by zero, idiot"
 # -------------------------------------------------------------------------------- 
@@ -239,19 +179,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 # ===== LESSON 2: CLASSES, DECORATORS, GENERATORS, AND CONTEXT MANAGERS =====
-
 
 # Lesson 2.1: SIMPLE CLASS
 # Class Dog: def __init__(self, name): self.name = name
@@ -268,16 +196,6 @@
 # 
 # dog = Dog("Fido")
 # dog.bark()
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -337,22 +255,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Lesson 2.3: GENERATORS - LAZY LISTS, SAVE MEMORY
 # Def fib(n): a=0;b=1; while a<n: yield a; a,b = b, a+b
 # Then for i in fib(10): print(i)
@@ -368,17 +270,6 @@
 # for i in fib(10):
 #     print(i)
 # 
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -415,38 +306,101 @@
 
 
 
-
-
-
-
-
-
-
-
-# ========================= LESSON 3: DATA SCIENCE  =========================
-
-# Lesson 3.1: QUERYING MYSQL INTO DATAFRAMES - DON'T BE A MORON WITH CONNECTIONS
-# SQLAlchemy + explicit 'with' for the win. pip install sqlalchemy mysql-connector-python 
-# -------------------------------------------------------------------------------- 
+# ========================= LESSON 3: DATA SCIENCE =========================
+#
+# Databases: don't fuck around with magic. Raw SQL, because ORMs are for lazy
+# idiots.
+#
+# Lesson 3.1: BUILD THE TABLE PROPERLY - NO HAND-HOLDING
+# --------------------------------------------------------------------------------
+# pip install sqlalchemy mysql-connector-python pandas Table: id auto-inc,
+# mobile, data (TEXT for JSON), timestamps that work.  JSON gen: dead simple,
+# now with random crap so it's not the same boring shit every run.
+#
+# import pandas as pd from sqlalchemy import create_engine import os from
+# datetime import datetime, timedelta import json import random  # For
+# randomizing, because static data is for morons.
+# 
+# import os
+# import json
+# import random
 # import pandas as pd
 # from sqlalchemy import create_engine
+# from datetime import datetime, timedelta
 # 
 # user = 'root'
 # password = 'password12345'
 # host = 'localhost'
-# database='test'
+# database = 'test'
 # 
 # engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
 # 
+# def gen_json(id: int) -> dict:
+#     names = ['Alice', 'Bob', 'Charlie', 'Dana', 'Eve']
+#     user_name = random.choice(names) + f'_{id}'
+#     score = random.randint(50, 200)
+#     active = random.choice([True, False])
+#     num_items = random.randint(2, 5)
+#     items = [f"item{random.randint(1,10)}_{i}" for i in range(1, num_items+1)]
+#     return {
+#         "user": user_name,
+#         "score": score,
+#         "active": active,
+#         "items": items
+#     }
+# 
 # with engine.connect() as conn:
-#     df = pd.read_sql_query("select * from testtable", conn)
-#     print(df)
+#     conn.execute("DROP TABLE IF EXISTS testtable")
+#     conn.execute("""
+#         CREATE TABLE testtable (
+#             id INT AUTO_INCREMENT PRIMARY KEY,
+#             mobile VARCHAR(20) NOT NULL,
+#             data TEXT,
+#             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+#             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+#         )
+#     """)
+#     mobiles = ['+1-555-1234', '+1-555-5678', '+1-555-9012']
+#     values = [(mobiles[i-1], json.dumps(gen_json(i))) for i in range(1,4)]
+#     conn.executemany("INSERT INTO testtable (mobile, data) VALUES (%s, %s)", values)
+#     conn.commit()
 
 
 
 
 
 
+
+# Lesson 3.2: FETCH TO DF - CACHE IT, DON'T BE STUPID
+# --------------------------------------------------------------------------------
+# One-hour cache. Query if stale.
+#
+# import os 
+# import pandas as pd 
+# from sqlalchemy import create_engine 
+# from datetime import datetime, timedelta 
+#
+# user = 'root'
+# password = 'password12345'
+# host = 'localhost'
+# database = 'test'
+#
+# engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
+#
+# cache_file = 'data_cache.csv'
+# cache_h = 1
+# 
+# def get_df() -> pd.DataFrame:
+#     if os.path.exists(cache_file):
+#         age = datetime.now() - datetime.fromtimestamp(os.path.getmtime(cache_file))
+#         if age < timedelta(hours=cache_h): return pd.read_csv(cache_file)
+#     with engine.connect() as conn:
+#         df = pd.read_sql_query("SELECT * FROM testtable", conn)
+#     df.to_csv(cache_file, index=False)
+#     return df
+# 
+# df = get_df()
+# print(df)
 
 
 
