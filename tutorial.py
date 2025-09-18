@@ -66,25 +66,25 @@
 # with type(). Covering all built-ins: None, bool, int, float, complex, str, list,
 # tuple, dict, set, frozenset, range, bytes, bytearray, memoryview, function
 # 
-# nothing = None
-# is_sane = False
-# age = 55
-# pi = 3.14159
-# z = 3 + 4j
-# name = "Linus"
-# bugs = [42, "panic", 0.1]
-# coords = (10,20)
-# prefs = {"os":"Linux"}
-# idiots = {"user1","user2"}
-# hell = frozenset(["debug", "monday"])
-# r = range(5)
-# b = b'hello'
-# ba = bytearray(b'hello')
-# mv = memoryview(ba)
+# nothing = None                            # Type: None
+# is_sane = False                           # Type: bool
+# age = 55                                  # Type: int
+# pi = 3.14159                              # Type: float
+# z = 3 + 4j                                # Type: complex
+# name = "Linus"                            # Type: str
+# bugs = [42, "panic", 0.1]                 # Type: list
+# coords = (10,20)                          # Type: tuple
+# prefs = {"os":"Linux"}                    # Type: dict
+# idiots = {"user1","user2"}                # Type: set
+# hell = frozenset(["debug", "monday"])     # Type: frozenset
+# r = range(5)                              # Type: range
+# b = b'hello'                              # Type: bytes
+# ba = bytearray(b'hello')                  # Type: bytearray
+# mv = memoryview(ba)                       # Type: memoryview
 # 
 # # And a function, because why not
 # def foo(): pass
-# func = foo
+# func = foo                                # Type: function
 # 
 # # Print individually like this
 # print(f"Nothing\t:\t{nothing}\t{type(nothing).__name__}")
