@@ -66,7 +66,7 @@
 # with type(). Covering all built-ins: None, bool, int, float, complex, str, list,
 # tuple, dict, set, frozenset, range, bytes, bytearray, memoryview, function
 # 
-# nothing = None                            # Type: None
+# nothing = None                            # Type: NoneType
 # is_sane = False                           # Type: bool
 # age = 55                                  # Type: int
 # pi = 3.14159                              # Type: float
