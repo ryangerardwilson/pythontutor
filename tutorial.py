@@ -269,6 +269,25 @@
 # products = [row * col for row in range(1, 3) for col in range(1, 4)]
 # print(products)  
 # 
+# print("\n=== Nested List Comp for Masochists ===")
+# products = [r * c * h * d
+#             for r in range(1, 3)
+#             for c in range(1, 4)
+#             for h in range(1, 5)
+#             for d in range(1, 6)]
+# print(products)
+#
+#
+# print("\n=== Nested List Comp3  ===")
+# rows = [1, 2]
+# cols = [3, 4, 5]
+# depths = [6, 7]
+# volumes = [r * c * d
+#            for r in rows
+#            for c in cols
+#            for d in depths]
+# print(volumes)
+#
 # print("\n=== Break/Escape the Nest: Early Outs ===")
 # found = False
 # for outer in range(1, 6):
