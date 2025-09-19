@@ -239,66 +239,108 @@
 # Lesson 1.7: CHAINING FOR LOOPS - NEST 'EM LIKE A RUSSIAN DOLL, YOU RECKLESS
 # HIERARCHY WHORE For loops ain't just for wimps iterating singly; chain the
 # bastards into nests for multi-dimensional madness. Outer loop bosses the big
-# picture, inners grind the guts.  But beware: O(n*m*k) complexity can fuck
-# your runtime harder than a kernel panic.  We'll do a 2D grid (matrix
+# picture, inners grind the guts. But beware: O(n*m*k) complexity can fuck
+# your runtime harder than a kernel panic. We'll do a 2D grid (matrix
 # multiplication lite), then a 3-level beast for volume calcs. No while loops
 # here—fors are cleaner for known depths, you lazy sod.
-
 # 
 # print("=== Basic 2-Level Nest: 3x3 Grid of Doubled Products ===")
-# Outer: rows. Inner: cols. Print a table of row*col*2
-# for row in range(1, 4):  
+# # Outer: rows. Inner: cols. Print a table of row*col*2
+# for row in range(1, 4):
 #     print(f"Row {row}:", end=" ")
-#     for col in range(1, 4):  
-#         print(f"{(row * col * 2:2d)}", end=" ")  
-#     print()  
+#     for col in range(1, 4):
+#         print(f"{(row * col * 2):2d}", end=" ")
+#     print()
 # 
 # print("\n=== 3-Level Nest: Volume of Boxes (l*w*h) ===")
 # # Now triple-chain: lengths, widths, heights. Sum volumes for a 2x2x2 cube of units.
+# # Nested loops to grind out each box, pretty-printed like a goddamn artisan.
 # total_volume = 0
-# for length in range(1, 3):  
-#     for width in range(1, 3):  
-#         for height in range(1, 3):  
+# print("  +---+---+")
+# print("  | L | W | H | Vol |")
+# print("  +---+---+---+-----+")
+# for length in range(1, 3):
+#     for width in range(1, 3):
+#         for height in range(1, 3):
 #             vol = length * width * height
-#             print(f"Box {length}x{width}x{height} = {vol} units")
+#             print(f"  | {length:1} | {width:1} | {height:1} | {vol:3} |")
 #             total_volume += vol
-# print(f"Total volume of all boxes: {total_volume}")  
+# print("  +---+---+---+-----+")
+# print(f"Total volume of all boxes: {total_volume} cubic units, you volume-hoarding prick.")
 # 
-# print("\n=== Nested with List Comp ===")
-# # A flat list of all products from a 2x3 grid.
-# products = [row * col for row in range(1, 3) for col in range(1, 4)]
-# print(products)  
+# print("\n=== Nested Loops for Products Grid ===")
+# # Ditch that lazy list comp—grind it with loops for a crisp 2x3 table of row*col.
+# print("Row\\Col | 1   2   3")
+# print("--------+---------")
+# for row in range(1, 3):
+#     print(f"  {row}    |", end=" ")
+#     for col in range(1, 4):
+#         prod = row * col
+#         print(f"{prod:>3} ", end="")
+#     print()
 # 
-# print("\n=== Nested List Comp for Masochists ===")
-# products = [r * c * h * d
-#             for r in range(1, 3)
-#             for c in range(1, 4)
-#             for h in range(1, 5)
-#             for d in range(1, 6)]
-# print(products)
-#
-#
-# print("\n=== Nested List Comp3  ===")
+# print("\n=== Nested Loops for Masochists: 2x3x4x5 Product Hell ===")
+# # Quad-nest the bastards—r*c*h*d, but slice it into a pretty multi-line dump 'cause flat lists are for pussies.
+# print("r\\c/h/d | Products (sampled hell)")
+# print("---------+-------------------")
+# count = 0
+# for r in range(1, 3):
+#     for c in range(1, 4):
+#         for h in range(1, 5):
+#             for d in range(1, 6):
+#                 prod = r * c * h * d
+#                 if count % 6 == 0:  # Line-break every 6 to not barf on the terminal.
+#                     print(f"{r:1}x{c:1}x{h:1}x{d:1} |", end=" ")
+#                 print(f"{prod:4}", end=" ")
+#                 count += 1
+#                 if count % 6 == 0:
+#                     print()
+#             if count % 6 != 0:
+#                 print()
+# 
+# print("\n=== Nested Loops for Volumes: Custom Rows/Cols/Depths ===")
+# # Loops over lists? Hell yeah—r*c*d volumes, tabulated like a proctologist's chart.
 # rows = [1, 2]
 # cols = [3, 4, 5]
 # depths = [6, 7]
-# volumes = [r * c * d
-#            for r in rows
-#            for c in cols
-#            for d in depths]
-# print(volumes)
-#
+# print("R\\C/D  |", " ".join(f"{c:>3}" for c in cols))
+# print("-------+--------------------------------")
+# for r in rows:
+#     line = f"{r:1}     |"
+#     for c in cols:
+#         subline = ""
+#         vols = []
+#         for d in depths:
+#             vol = r * c * d
+#             vols.append(vol)
+#             subline += f"{vol:3} "
+#         line += subline.strip() + " |"
+#     print(line)
+# 
 # print("\n=== Break/Escape the Nest: Early Outs ===")
+# # Bail-out nest: outer hunts, inner multiplies—break when >10, flag the chaos.
 # found = False
+# print("Outer | Inner Products (bail at >10)")
+# print("------+--------------------------------")
 # for outer in range(1, 6):
-#     print(f"Outer {outer}:")
+#     print(f"{outer:>5} |", end="")
+#     all_fine = True
 #     for inner in range(1, 6):
-#         if outer * inner > 10:  # Bail when product >10.
-#             print(f"  Inner {inner}: {outer*inner} - TOO BIG, GTFO!")
-#             break  
-#     else:  
-#         print("  All inners were fine.")
-#     if found: break  
+#         prod = outer * inner
+#         if prod > 10:
+#             print(f" {inner}: {prod} - TOO BIG, GTFO!", end="")
+#             all_fine = False
+#             break
+#         else:
+#             print(f" {inner}: {prod:>2}", end="   ")
+#     if all_fine:
+#         print(" - All inners were fine, the wimps.")
+#     else:
+#         print()
+#     if found:
+#         break
+#     if not all_fine:
+#         found = True
 
 
 
