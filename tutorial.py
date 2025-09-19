@@ -99,9 +99,9 @@
 # string"""
 # print(mls1)
 # 
-# mls2 = "And "
-#        "so is "
-#        "this "
+# mls2 = ("And "
+#         "this is a "
+#         "single line string ")
 # print(mls2)
 
 
@@ -250,7 +250,7 @@
 # for row in range(1, 4):  
 #     print(f"Row {row}:", end=" ")
 #     for col in range(1, 4):  
-#         print(f"{row * col * 2:2d}", end=" ")  
+#         print(f"{(row * col * 2:2d)}", end=" ")  
 #     print()  
 # 
 # print("\n=== 3-Level Nest: Volume of Boxes (l*w*h) ===")
