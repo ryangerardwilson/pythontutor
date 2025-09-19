@@ -60,18 +60,18 @@
 # Uncomment and edit as you go—run the file after each lesson to verify.
 # Errors? Good, learn from 'em. No errors? You're lying.
 
-# ===== LESSON 1: THE BASICS - SAY HELLO OR GTFO =====
-# Lesson 1.1: PRINTING VARIABLES AND PYTHON DATA TYPES
-# Variables: snake_case, no keywords. Dynamic typing—Python guesses, you verify
-# with type(). Covering all built-ins: None, bool, int, float, complex, str, list,
-# tuple, dict, set, frozenset, range, bytes, bytearray, memoryview, function,
-# class
-#
+# ================== LESSON 1: TYPES =========================
+# Lesson 1.1: PRINTING PYTHON TYPES
+# 
 # Types: Every single thing in Python is an object, and every object has a
 # type—check it with type(some_shit), which spits back the class that owns it.
 # And get this: types themselves are objects too, created by the metaclass type
 # (yeah, it's turtles all the way down, you recursive nightmare).
 # 
+# Covering all built-in types: None, bool, int, float, complex, str, list,
+# tuple, dict, set, frozenset, range, bytes, bytearray, memoryview, function,
+# class
+# -------------------------------------------------------------------------------- 
 # x = type                                  # Type: type
 # nothing = None                            # Type: NoneType
 # is_sane = False                           # Type: bool
@@ -122,7 +122,42 @@
 
 
 
-# Lesson 1.2: BASIC MATH
+# Lesson 1.2: Types versus Syntax
+# 
+# Python's got two big buckets: objects (which all have types, as we've beaten
+# into your skull in the last lesson), and syntax (the control flow crap like
+# keywords, operators, and punctuation that glues it all together without
+# turning your code into a syntax-error shitstorm). 
+# 
+# - Objects/Types: The meat—ints, strings, classes, your barking dog instances,
+# enums, functions, everything you can assign to a variable, pass around, or
+# type()-check. These are runtime citizens, born from classes (which are types
+# themselves, remember?).
+#
+# - Pure Syntactical Control Flow Voodoo: The skeleton—keywords ("for", "if",
+# "def", "class"), operators ("+", "+=", "and", "in"), delimiters (colons,
+# parens, commas), and indentation (yeah, that whitespace heresy). This shit
+# doesn't exist at runtime; it's compile-time fairy dust that tells Python how
+# to interpret and execute your objects. Try type(if) or type(+)—SyntaxError
+# city, because they're not objects, they're grammar rules etched in stone by
+# Guido's unholy hand.
+# -------------------------------------------------------------------------------- 
+# type(if)  # SyntaxError: invalid syntax
+# type(for)  # SyntaxError: invalid syntax
+# type(+)  # SyntaxError: invalid syntax 
+# 
+# # But they control the flow without existing:
+# if x > 0:
+#     for i in range(3):
+#         print(s + str(i))  # Objects dancing under syntax's whip
+
+
+
+
+
+
+
+# Lesson 1.3: BASIC MATH
 # Compute 2 * (2 + 3) / 4 - 1 and print the result (should be 1.5)
 # -------------------------------------------------------------------------------- 
 # result = 2 * (2 + 3) / 4 - 1
@@ -134,7 +169,7 @@
 
 
 
-# Lesson 1.3: STRINGS AND LISTS
+# Lesson 1.4: STRINGS AND LISTS
 # Make a list ['apple', 'banana', 'cherry'], add 'date' to end, print the list
 # -------------------------------------------------------------------------------- 
 # fruits = ['apple', 'banana', 'cherry']
@@ -147,7 +182,7 @@
 
 
 
-# Lesson 1.4: IF STATEMENTS
+# Lesson 1.5: IF STATEMENTS
 # Set age = 25, if age >= 18 print "Adult", else "Kid"
 # -------------------------------------------------------------------------------- 
 # age = 25
@@ -161,13 +196,14 @@
 
 
 
-# Lesson 1.5: WHILE LOOPS - BECAUSE SOMETIMES YOU DON'T KNOW WHEN TO QUIT, YOU
+
+# Lesson 1.6: WHILE LOOPS - BECAUSE SOMETIMES YOU DON'T KNOW WHEN TO QUIT, YOU
 # GLUTTON FOR PUNISHMENT While: Loops till a condition's false. Init var,
 # check, do stuff, update—or infinite loop and watch your machine melt.
 # Example: Double 1-5, but with a twist: count down from 10, break early if
 # even. Covers basics, break/continue too.  Pro tip: Always update inside, or
 # you're debugging a toaster.
-# 
+# -------------------------------------------------------------------------------- 
 # print("=== Basic while: Double 1-5 ===")
 # num = 1
 # while num <= 5:  # Loops as long as truthy.
@@ -203,12 +239,12 @@
 
 
 
-# Lesson 1.6: FOR LOOPS - ITERATE OR PERISH, YOU REPETITIVE BASTARD For: Loops
+# Lesson 1.7: FOR LOOPS - ITERATE OR PERISH, YOU REPETITIVE BASTARD For: Loops
 # over iterables (lists, range, etc.). Cleaner than while for known sequences.
 # Covers: basic list, range (lazy nums), list comps (condensed power),
 # enumerate (idx hack), zip (mash iterables), generators (low-mem yields). All
 # double 1-5.
-# 
+# -------------------------------------------------------------------------------- 
 # print("=== Basic for over list ===")
 # for num in [1,2,3,4,5]:  # Grabs each item.
 #     print(num * 2)
@@ -248,7 +284,8 @@
 
 
 
-# Lesson 1.7: CHAINING FOR LOOPS - NEST 'EM LIKE A RUSSIAN DOLL, YOU RECKLESS
+
+# Lesson 1.8: CHAINING FOR LOOPS - NEST 'EM LIKE A RUSSIAN DOLL, YOU RECKLESS
 # HIERARCHY WHORE For loops ain't just for wimps iterating singly; chain the
 # bastards into nests for multi-dimensional madness. Outer loop bosses the big
 # picture, inners grind the guts. But beware: O(n*m*k) complexity can fuck
@@ -279,80 +316,6 @@
 #             total_volume += vol
 # print("  +---+---+---+-----+")
 # print(f"Total volume of all boxes: {total_volume} cubic units, you volume-hoarding prick.")
-# 
-# print("\n=== Nested Loops for Products Grid ===")
-# # Ditch that lazy list comp—grind it with loops for a crisp 2x3 table of row*col.
-# print("Row\\Col | 1   2   3")
-# print("--------+---------")
-# for row in range(1, 3):
-#     print(f"  {row}    |", end=" ")
-#     for col in range(1, 4):
-#         prod = row * col
-#         print(f"{prod:>3} ", end="")
-#     print()
-# 
-# print("\n=== Nested Loops for Masochists: 2x3x4x5 Product Hell ===")
-# # Quad-nest the bastards—r*c*h*d, but slice it into a pretty multi-line dump 'cause flat lists are for pussies.
-# print("r\\c/h/d | Products (sampled hell)")
-# print("---------+-------------------")
-# count = 0
-# for r in range(1, 3):
-#     for c in range(1, 4):
-#         for h in range(1, 5):
-#             for d in range(1, 6):
-#                 prod = r * c * h * d
-#                 if count % 6 == 0:  # Line-break every 6 to not barf on the terminal.
-#                     print(f"{r:1}x{c:1}x{h:1}x{d:1} |", end=" ")
-#                 print(f"{prod:4}", end=" ")
-#                 count += 1
-#                 if count % 6 == 0:
-#                     print()
-#             if count % 6 != 0:
-#                 print()
-# 
-# print("\n=== Nested Loops for Volumes: Custom Rows/Cols/Depths ===")
-# # Loops over lists? Hell yeah—r*c*d volumes, tabulated like a proctologist's chart.
-# rows = [1, 2]
-# cols = [3, 4, 5]
-# depths = [6, 7]
-# print("R\\C/D  |", " ".join(f"{c:>3}" for c in cols))
-# print("-------+--------------------------------")
-# for r in rows:
-#     line = f"{r:1}     |"
-#     for c in cols:
-#         subline = ""
-#         vols = []
-#         for d in depths:
-#             vol = r * c * d
-#             vols.append(vol)
-#             subline += f"{vol:3} "
-#         line += subline.strip() + " |"
-#     print(line)
-# 
-# print("\n=== Break/Escape the Nest: Early Outs ===")
-# # Bail-out nest: outer hunts, inner multiplies—break when >10, flag the chaos.
-# found = False
-# print("Outer | Inner Products (bail at >10)")
-# print("------+--------------------------------")
-# for outer in range(1, 6):
-#     print(f"{outer:>5} |", end="")
-#     all_fine = True
-#     for inner in range(1, 6):
-#         prod = outer * inner
-#         if prod > 10:
-#             print(f" {inner}: {prod} - TOO BIG, GTFO!", end="")
-#             all_fine = False
-#             break
-#         else:
-#             print(f" {inner}: {prod:>2}", end="   ")
-#     if all_fine:
-#         print(" - All inners were fine, the wimps.")
-#     else:
-#         print()
-#     if found:
-#         break
-#     if not all_fine:
-#         found = True
 
 
 
@@ -360,7 +323,8 @@
 
 
 
-# Lesson 1.8: DEFINE A FUNCTION
+
+# Lesson 1.9: DEFINE A FUNCTION
 # Def greet(name): return f"Hello, {name}!"
 # Then call greet("Linus") and print it
 # Functions? Yeah, because hardcoding everything is for amateurs. Don't screw this up.
@@ -376,7 +340,7 @@
 
 
 
-# Lesson 1.9: TRY-EXCEPT
+# Lesson 1.10: TRY-EXCEPT
 # Try to divide 10/0, catch ZeroDivisionError, print "Can't divide by zero, idiot"
 # -------------------------------------------------------------------------------- 
 # try:
@@ -390,31 +354,9 @@
 
 
 
-# ===== LESSON 2: CLASSES, DECORATORS, GENERATORS, AND CONTEXT MANAGERS =====
+# ===== LESSON 2: DECORATORS, GENERATORS, AND CONTEXT MANAGERS =====
 
-# Lesson 2.1: SIMPLE CLASS
-# Class Dog: def __init__(self, name): self.name = name
-# def bark(self): print(f"{self.name} says woof!")
-# Then dog = Dog("Fido"), dog.bark()
-# Oh, classes now? Because your code wasn't bloated enough with global variables. Just don't make it a mess like some kernel modules I've seen.
-# -------------------------------------------------------------------------------- 
-# class Dog:
-#     def __init__(self, name):
-#         self.name = name
-# 
-#     def bark(self):
-#         print(f"{self.name} says woof!")
-# 
-# dog = Dog("Fido")
-# dog.bark()
-
-
-
-
-
-
-
-# Lesson 2.2: DECORATORS - WRAP YOUR FUNCTIONS LIKE A PRO
+# Lesson 2.1: DECORATORS - WRAP YOUR FUNCTIONS LIKE A PRO
 # Look, in the real world, your functions aren't living in isolation—they're part 
 # of an ecosystem. Sometimes you need to add behavior around them without hacking 
 # up the original code like some amateur surgeon. 
@@ -466,10 +408,11 @@
 
 
 
-# Lesson 2.3: GENERATORS - LAZY LISTS, SAVE MEMORY
-# Def fib(n): a=0;b=1; while a<n: yield a; a,b = b, a+b
-# Then for i in fib(10): print(i)
-# Generators? Finally, something that doesn't waste memory like your bloated C++ code. Lazy evaluation—because who needs to compute everything upfront when you can pretend you're efficient?
+# Lesson 2.2: GENERATORS - LAZY LISTS, SAVE MEMORY Def fib(n): a=0;b=1; while
+# a<n: yield a; a,b = b, a+b Then for i in fib(10): print(i) Generators?
+# Finally, something that doesn't waste memory like your bloated C++ code. Lazy
+# evaluation—because who needs to compute everything upfront when you can
+# pretend you're efficient?
 # -------------------------------------------------------------------------------- 
 # def fib(n):
 #     a = 0
@@ -488,13 +431,10 @@
 
 
 
-# Lesson 2.4: CONTEXT MANAGERS - WITH BLOCKS, CLEANUP AUTOMAGIC
-# Class Timer: def __enter__(self): self.start=time.time(); return self
-# def __exit__(self, *args): print(time.time()-self.start)
-# with Timer(): time.sleep(1); print("Slept")
-# Context managers? Finally, a way to force your code to clean up after itself without 
-# you forgetting like a braindead intern. Automagic cleanup—because who has time for 
-# try-finally bullshit?
+# Lesson 2.3: CONTEXT MANAGERS - WITH BLOCKS, CLEANUP AUTOMAGIC 
+# Finally, a way to force your code to clean up after itself without you
+# forgetting like a braindead intern. Automagic cleanup—because who has time
+# for try-finally bullshit?
 # -------------------------------------------------------------------------------- 
 # import time
 # 
