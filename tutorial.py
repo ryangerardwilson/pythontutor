@@ -61,7 +61,7 @@
 # Errors? Good, learn from 'em. No errors? You're lying.
 
 # ===== LESSON 1: THE BASICS - SAY HELLO OR GTFO =====
-# Lesson 1.1: VARIABLES AND PYTHON DATA TYPES
+# Lesson 1.1: PRINTING VARIABLES AND PYTHON DATA TYPES
 # Variables: snake_case, no keywords. Dynamic typing—Python guesses, you verify
 # with type(). Covering all built-ins: None, bool, int, float, complex, str, list,
 # tuple, dict, set, frozenset, range, bytes, bytearray, memoryview, function
@@ -93,6 +93,16 @@
 # for variable_name, value in list(locals().items()):
 #     if not variable_name.startswith('__'):
 #         print(f"{variable_name}\t:\t{value}\t{type(value).__name__}")
+#
+# mls1 = """This is a
+# multiline 
+# string"""
+# print(mls1)
+# 
+# mls2 = "And "
+#        "so is "
+#        "this "
+# print(mls2)
 
 
 
@@ -226,7 +236,58 @@
 
 
 
-# Lesson 1.7: DEFINE A FUNCTION
+# Lesson 1.7: CHAINING FOR LOOPS - NEST 'EM LIKE A RUSSIAN DOLL, YOU RECKLESS
+# HIERARCHY WHORE For loops ain't just for wimps iterating singly; chain the
+# bastards into nests for multi-dimensional madness. Outer loop bosses the big
+# picture, inners grind the guts.  But beware: O(n*m*k) complexity can fuck
+# your runtime harder than a kernel panic.  We'll do a 2D grid (matrix
+# multiplication lite), then a 3-level beast for volume calcs. No while loops
+# here—fors are cleaner for known depths, you lazy sod.
+
+# 
+# print("=== Basic 2-Level Nest: 3x3 Grid of Doubled Products ===")
+# Outer: rows. Inner: cols. Print a table of row*col*2
+# for row in range(1, 4):  
+#     print(f"Row {row}:", end=" ")
+#     for col in range(1, 4):  
+#         print(f"{row * col * 2:2d}", end=" ")  
+#     print()  
+# 
+# print("\n=== 3-Level Nest: Volume of Boxes (l*w*h) ===")
+# # Now triple-chain: lengths, widths, heights. Sum volumes for a 2x2x2 cube of units.
+# total_volume = 0
+# for length in range(1, 3):  
+#     for width in range(1, 3):  
+#         for height in range(1, 3):  
+#             vol = length * width * height
+#             print(f"Box {length}x{width}x{height} = {vol} units")
+#             total_volume += vol
+# print(f"Total volume of all boxes: {total_volume}")  
+# 
+# print("\n=== Nested with List Comp ===")
+# # A flat list of all products from a 2x3 grid.
+# products = [row * col for row in range(1, 3) for col in range(1, 4)]
+# print(products)  
+# 
+# print("\n=== Break/Escape the Nest: Early Outs ===")
+# found = False
+# for outer in range(1, 6):
+#     print(f"Outer {outer}:")
+#     for inner in range(1, 6):
+#         if outer * inner > 10:  # Bail when product >10.
+#             print(f"  Inner {inner}: {outer*inner} - TOO BIG, GTFO!")
+#             break  
+#     else:  
+#         print("  All inners were fine.")
+#     if found: break  
+
+
+
+
+
+
+
+# Lesson 1.8: DEFINE A FUNCTION
 # Def greet(name): return f"Hello, {name}!"
 # Then call greet("Linus") and print it
 # Functions? Yeah, because hardcoding everything is for amateurs. Don't screw this up.
@@ -242,7 +303,7 @@
 
 
 
-# Lesson 1.8: TRY-EXCEPT
+# Lesson 1.9: TRY-EXCEPT
 # Try to divide 10/0, catch ZeroDivisionError, print "Can't divide by zero, idiot"
 # -------------------------------------------------------------------------------- 
 # try:
@@ -376,117 +437,6 @@
 #     time.sleep(1)
 #     print("Slept")
 # 
-
-
-
-
-
-
-
-# ========================= LESSON 3: DATA SCIENCE =========================
-#
-# Databases: don't fuck around with magic. Raw SQL, because ORMs are for lazy
-# idiots.
-#
-# Lesson 3.1: BUILD THE TABLE PROPERLY - NO HAND-HOLDING
-# --------------------------------------------------------------------------------
-# pip install sqlalchemy mysql-connector-python pandas Table: id auto-inc,
-# mobile, data (TEXT for JSON), timestamps that work.  JSON gen: dead simple,
-# now with random crap so it's not the same boring shit every run.
-#
-# import pandas as pd from sqlalchemy import create_engine import os from
-# datetime import datetime, timedelta import json import random  # For
-# randomizing, because static data is for morons.
-# 
-# import os
-# import json
-# import random
-# import pandas as pd
-# from sqlalchemy import create_engine, text
-# from datetime import datetime, timedelta
-# 
-# user = 'root'
-# password = 'password12345'
-# host = 'localhost'
-# database = 'test'
-# engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
-# 
-# def gen_json(id: int)-> dict:
-#     names = ['Alice', 'Bob', 'Charlie', 'Dana', 'Eve']
-#     user_name = random.choice(names) + f'_{id}'
-#     score = random.randint(50,200)
-#     active = random.choice([True, False])
-#     num_items = random.randint(2,5)
-#     items = [f"itm{random.randint(1,10)}_{i}" for i in range(1, num_items+1)]
-#     return {
-#         "user": user_name,
-#         "score": score,
-#         "active": active,
-#         "items": items
-#         }
-# 
-# with engine.connect() as conn:
-#     conn.execute(text("DROP TABLE IF EXISTS testtable"))
-#     conn.execute(text("""
-#         CREATE TABLE testtable (
-#             id INT AUTO_INCREMENT PRIMARY KEY,
-#             mobile VARCHAR(20) NOT NULL,
-#             data TEXT,
-#             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-#             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE
-#             CURRENT_TIMESTAMP
-#             )
-#     """))
-#     mobiles = ['1111111111','2222222222','3333333333']
-#     values = [{'mobile': mobiles[i-1], 'data': json.dumps(gen_json(i))} for i in range(1, 4)]
-#     conn.execute(text("INSERT INTO testtable (mobile, data) VALUES (:mobile, :data)"), values)
-#     conn.commit()
-
-
-
-
-
-
-
-# Lesson 3.2: FETCH TO DF - CACHE IT, DON'T BE STUPID
-# --------------------------------------------------------------------------------
-# One-hour cache. Query if stale.
-#
-# import os
-# import pandas as pd
-# from sqlalchemy import create_engine
-# from datetime import datetime, timedelta
-# 
-# user = 'root'
-# password = 'password12345'
-# host = 'localhost'
-# database = 'test'
-# engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
-# 
-# cache_file = 'data_cache.csv'
-# cache_h = 1
-# 
-# def get_df() -> pd.DataFrame:
-#     if os.path.exists(cache_file):
-#         age = datetime.now() - datetime.fromtimestmap(os.path.getmtime(cache_file))
-#         if age < timedelta(hours=cache_h): return pd.read_csv(cache_file)
-#     with engine.connect() as conn:
-#         df = pd.read_sql_query("SELECT * FROM testtable", conn)
-#     df.to_csv(cache_file, index=False)
-#     return df
-# 
-# df = get_df()
-# print(df)
-
-
-
-
-
-
-
-
-
-
 
 
 
