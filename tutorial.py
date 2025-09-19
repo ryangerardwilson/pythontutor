@@ -64,8 +64,15 @@
 # Lesson 1.1: PRINTING VARIABLES AND PYTHON DATA TYPES
 # Variables: snake_case, no keywords. Dynamic typing—Python guesses, you verify
 # with type(). Covering all built-ins: None, bool, int, float, complex, str, list,
-# tuple, dict, set, frozenset, range, bytes, bytearray, memoryview, function
+# tuple, dict, set, frozenset, range, bytes, bytearray, memoryview, function,
+# class
+#
+# Types: Every single thing in Python is an object, and every object has a
+# type—check it with type(some_shit), which spits back the class that owns it.
+# And get this: types themselves are objects too, created by the metaclass type
+# (yeah, it's turtles all the way down, you recursive nightmare).
 # 
+# x = type                                  # Type: type
 # nothing = None                            # Type: NoneType
 # is_sane = False                           # Type: bool
 # age = 55                                  # Type: int
@@ -82,13 +89,18 @@
 # ba = bytearray(b'hello')                  # Type: bytearray
 # mv = memoryview(ba)                       # Type: memoryview
 # 
-# # And a function, because why not
-# def foo(): pass
-# func = foo                                # Type: function
+# def foo(): pass                           
+# func = foo                                # Type: Function 
+#
+# class Dog:                                # Type: type (yes, this is a type)
+#     def __init__(self, name): self.name = name
+#     def bark(self): print(f"{self.name} woofs!")
+# 
+# dog = Dog("Fido")                         # Type: Dog
 # 
 # # Print individually like this
 # print(f"Nothing\t:\t{nothing}\t{type(nothing).__name__}")
-# 
+#
 # # Or, loop over locals like this
 # for variable_name, value in list(locals().items()):
 #     if not variable_name.startswith('__'):
