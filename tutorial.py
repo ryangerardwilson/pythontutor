@@ -229,59 +229,57 @@
 
 
 
-# Lesson 1.4: Python's Dunder Methods Dunders let classes emulate built-ins.
-# Use semantically; read docs.python.org/3/reference/datamodel.html.
+# Lesson 1.4: Python Dunders
+# Emulate built-ins; see docs.python.org/3/reference/datamodel.html.
 # --------------------------------------------------------------------------------
 # class MyClass:
+#     def __init__(self):
+#         self.d = [1, 2, 3]  # Demo container
 # 
-#     # Enables syntax: obj = MyClass(...) 
-#     def __init__(self, v, x=1, y=2):
-#         # __init__ initializes the already-created object: sets up attributes
-#         # like self.v. It's not the constructor, despite what some sloppy
-#         # tutorials say.
-#         self.v = v
-#         self.x = x  # For vector ops
-#         self.y = y  # For vector ops
-#         self.d = [1, 2, 3]  # For container ops, hardcoded for demo
-#         self.resource = open('tempfile.txt', 'w')  # Pretend resource to clean up
-# 
-#     # Representation
-#     # Enables syntax: print(obj) or str(obj)
+#     # Str: print(obj) or str(obj)
 #     def __str__(self):
 #         return "Nice"
 # 
-#     # Enables syntax: len(obj)
+#     # Len: len(obj)
 #     def __len__(self):
 #         return len(self.d)
 # 
-#     # Enables syntax: obj[key] (getitem access)
+#     # Getitem: obj[key]
 #     def __getitem__(self, k):
 #         return self.d[k]
 # 
-#     # Enables syntax: obj[key] = value (setitem assignment)
+#     # Setitem: obj[key] = v
 #     def __setitem__(self, k, v):
 #         self.d[k] = v
 # 
-#     # Enables syntax: item in obj (membership test)
+#     # Contains: item in obj
 #     def __contains__(self, i):
 #         return i in self.d
 # 
-#     # Enables syntax: for x in obj: ... (iteration)
+#     # Iter: for x in obj
 #     def __iter__(self):
 #         return iter(self.d)
 # 
-#     # Contexts
-#     # Enables syntax: with obj: ... (enter context)
+#     # Enter: with obj (setup)
 #     def __enter__(self):
+#         self.backup = self.d.copy()  # Backup state
 #         return self
 # 
-#     # Enables syntax: with obj: ... (exit context, handles exceptions)
-#     def __exit__(self, *e):
-#         return True
+#     # Exit: with obj (teardown, handles exc)
+#     def __exit__(self, *exc):
+#         self.d = self.backup  # Restore
+#         del self.backup
+#         return False  # Propagate exc
 # 
-#     # Enables syntax: obj(...) (calling instance like a function)
+#     # Call: obj(...)
 #     def __call__(self, *a):
 #         pass
+# 
+# # Usage: Temp mods auto-revert, no manual cleanup needed.
+# obj = MyClass()
+# with obj as mc:
+#     mc[0] = 99  # Temp change
+# print(obj.d)  # Back to [1, 2, 3] after with
 
 
 
