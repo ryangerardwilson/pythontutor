@@ -192,7 +192,9 @@
 
 
 
-# Lesson 1.3: Dunder Methods in Native Python Data Types
+
+# ================== LESSON 2: THE PYTHON DATA MODEL  =========================
+# Lesson 2.1: Dunder Methods in Native Python Data Types
 #
 # Python's built-ins use dunders to integrate with syntax. Study them to avoid
 # shitty implementations. Except for in this lesson, call syntax, not dunders
@@ -229,7 +231,7 @@
 
 
 
-# Lesson 1.4: Python Dunders
+# Lesson 2.2: Python Dunders
 # Emulate built-ins; see docs.python.org/3/reference/datamodel.html.
 # --------------------------------------------------------------------------------
 # class MyClass:
@@ -262,6 +264,8 @@
 # 
 #     # Enter: with obj (setup)
 #     def __enter__(self):
+#         # Python allows objects to add attributes at runtime
+#         # Thus, self.backup need not be in init
 #         self.backup = self.d.copy()  # Backup state
 #         return self
 # 
@@ -279,7 +283,8 @@
 # obj = MyClass()
 # with obj as mc:
 #     mc[0] = 99  # Temp change
-# print(obj.d)  # Back to [1, 2, 3] after with
+#     print(mc[0])
+# print(obj[0])  # Back to 1 after with
 
 
 
@@ -287,33 +292,37 @@
 
 
 
-# Lesson 1.6: CRUD on Lists and Strings 
+
+# ================== LESSON 3: INTUITIVE CODING PATTERNS  =========================
+# Lesson 3.1: CRUD on Lists and Strings 
 # --------------------------------------------------------------------------------
 # # LISTS
 # l = ['a', 'b', 'c']
-# # READ
+# #     read
 # l[0]  # 'a'
 # l[1:3] # ['b', 'c']
 # 'b' in l # True
-# # CREATE
+# #     create
 # new = l + ['g']
 # l += ['h']
-# # UPDATE
+# #     update
 # l[0] = 'A'
-# # DELETE
+# #     delete
 # del l[3]
 # del l[1:3]
 # 
 # # STRINGS (immutable, new on ops)
 # s = "abc"
-# # READ
+# #     read
 # s[0]  # 'a'
-# # CREATE
+# #     create
 # new = s + "e"
 # s += "d" # new
-# # UPDATE (new)
+# #     update 
 # s[:1] + 'y' + s[1:]
-# # DELETE (new)
+# #     delete (new) - we don't use this for deleting items in lists, as it
+# #     creates a while new object. But we make peace with this inefficiency for
+# #     stings, because strings are immutable
 # s[:1] + s[2:]
 
 
@@ -322,7 +331,7 @@
 
 
 
-# Lesson 1.7: LOOPS 
+# Lesson 3.2: LOOPS 
 # -------------------------------------------------------------------------------- 
 # # Basic while: Double 1-5 
 # num = 1
@@ -346,7 +355,7 @@
 #
 # # Sum volumes for a 2x2x2 cube of units.
 # total_volume = 0
-# print("  +---+---+")
+# print("  +---+---+---+-----+")
 # print("  | L | W | H | Vol |")
 # print("  +---+---+---+-----+")
 # for length in range(1, 3):
@@ -357,6 +366,22 @@
 #             total_volume += vol
 # print("  +---+---+---+-----+")
 # print(f"Total volume of all boxes: {total_volume} cubic units")
+#
+# # Same as above, but using list comprehension. Note we need 2 list
+# comprehenion loops, despite the syntax being more concise
+# print("  +---+---+---+-----+")
+# print("  | L | W | H | Vol |")
+# print("  +---+---+---+-----+")
+# _ = [print(f"  | {length:1} | {width:1} | {height:1} | {length * width * height:3} |") 
+#      for length in range(1, 3) 
+#      for width in range(1, 3) 
+#      for height in range(1, 3)]
+# print("  +---+---+---+-----+")
+# total_volume = sum(length * width * height 
+#                    for length in range(1, 3) 
+#                    for width in range(1, 3) 
+#                    for height in range(1, 3))
+# print(f"Total volume of all boxes: {total_volume} cubic units")
 
 
 
@@ -364,7 +389,7 @@
 
 
 
-# Lesson 1.8: DECORATORS - WRAP YOUR FUNCTIONS LIKE A PRO
+# Lesson 3.3: DECORATORS - WRAP YOUR FUNCTIONS LIKE A PRO
 # Look, in the real world, your functions aren't living in isolation—they're part 
 # of an ecosystem. Sometimes you need to add behavior around them without hacking 
 # up the original code like some amateur surgeon. 
@@ -372,16 +397,6 @@
 # That's where decorators come in: they're syntactic sugar on top of higher-order 
 # functions, letting you inject logging, timing, authentication, or whatever crap 
 # you need without turning your function into a bloated monster. Why bother? 
-#
-# Because rewriting every function to include the same boilerplate is for idiots 
-# who like copy-paste errors and maintenance hell. Decorators keep things DRY 
-# (Don't Repeat Yourself, you slacker), modular, and readable. Imagine debugging 
-# a kernel module without this— you'd be chasing ghosts for weeks. This timer's a 
-# simple example: it wraps your func to measure execution time, so you can spot the 
-# slow-ass bottlenecks before they tank your app. 
-# 
-# Without it, you're flying blind, wondering why your program's "just slow." Use it, 
-# or suffer.
 #
 # What the hell does this decorator actually do in the example? Simple: 
 # - @timer takes your slow() function and replaces it with a wrapper that sneaks in 
@@ -416,7 +431,7 @@
 
 
 
-# Lesson 1.9: CONTEXT MANAGERS - WITH BLOCKS, CLEANUP AUTOMAGIC 
+# Lesson 3.4: CONTEXT MANAGERS - WITH BLOCKS, CLEANUP AUTOMAGIC 
 # Finally, a way to force your code to clean up after itself without you
 # forgetting like a braindead intern. Automagic cleanup—because who has time
 # for try-finally bullshit?
