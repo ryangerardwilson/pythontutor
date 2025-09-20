@@ -99,7 +99,7 @@
 # dog = Dog("Fido")                         # Type: Dog
 # 
 # # Print individually like this
-# print(f"Nothing\t:\t{nothing}\t{type(nothing).__name__}")
+# print(f"x\t:\t{x}\t{type(x).__name__}")
 #
 # # Or, loop over locals like this
 # for variable_name, value in list(locals().items()):
@@ -261,10 +261,6 @@
 # # Functions
 # def func(x): pass
 # func.__call__(5)      # func(5)
-# 
-# # Files
-# with open('temp.txt', 'w') as f: pass  # f.__enter__(), f.__exit__()
-# # for line in f: pass  # f.__iter__(), iterator.__next__()
 # 
 # # Others
 # (42).__str__()        # str(42)
@@ -451,88 +447,88 @@
 # Immutables force new objects on C/U/D—lame perf hit, but that's Python for
 # you.
 # --------------------------------------------------------------------------------
-# LISTS: Mutable sequences—proper for dynamic collections.
-fruits = ['apple', 'banana', 'cherry']
-print(fruits)  
-# READ: Indexing (0-based, negative reverse), slicing, membership
-print(fruits[0])     # 'apple' (index access)
-print(fruits[-1])    # 'cherry'
-print(fruits[1:3])   # ['banana', 'cherry'] (slice)
-print('banana' in fruits)  # True (membership)
-# CREATE: append (end), insert (position), extend (multiple), +/+= (concat, new or in-place)
-fruits.append('date')         # Add to end (in-place)
-print(fruits)                 # ['apple', 'banana', 'cherry', 'date']
-fruits.insert(1, 'apricot')   # Insert at index 1 (in-place)
-print(fruits)                 # ['apple', 'apricot', 'banana', 'cherry', 'date']
-fruits.extend(['elderberry', 'fig'])  # Add iterable (in-place)
-print(fruits)                 # ['apple', 'apricot', 'banana', 'cherry', 'date', 'elderberry', 'fig']
-new_fruits = fruits + ['grape']  # Concat to new list
-print(new_fruits)             # ... + 'grape'
-fruits += ['honeydew']        # In-place extend
-print(fruits)                 # ... + 'honeydew'
-# UPDATE: Assign via index/slice
-fruits[0] = 'avocado'         # Single item
-print(fruits)                 # ['avocado', ...]
-fruits[1:3] = ['blueberry', 'blackberry']  # Slice replace (can change length)
-print(fruits)                 # ['avocado', 'blueberry', 'blackberry', ...]
-# DELETE: pop (index, returns), remove (value), del (index/slice), clear (all)
-popped = fruits.pop(2)        # Remove/return index 2
-print(popped)                 # 'blackberry'
-print(fruits)                 # ['avocado', 'blueberry', ...]
-fruits.remove('cherry')       # First value occurrence
-print(fruits)                 # Without 'cherry'
-del fruits[3]                 # By index
-print(fruits)                 # Without index 3
-del fruits[1:3]               # Slice
-print(fruits)                 # Shorter
-fruits.clear()                # Nuke all
-print(fruits)                 # []
-
-# STRINGS: Immutable sequences—mutations create new strings. Allocation hell.
-# Create a string
-greeting = "hello world"
-print(greeting)  # 'hello world'
-# READ: Indexing, slicing, membership (returns substrings)
-print(greeting[0])    # 'h'
-print(greeting[-1])   # 'd'
-print(greeting[6:11]) # 'world'
-print('world' in greeting)  # True
-# CREATE: +/+= (concat), join (from iterable)
-greeting += "!"               # New string: 'hello world!'
-print(greeting)
-new_greeting = greeting + " again"  # Another new
-print(new_greeting)           # 'hello world! again'
-words = ['hello', 'world']
-joined = ' '.join(words)      # New from iterable
-print(joined)                 # 'hello world'
-# UPDATE: replace (value), slicing + concat (manual)
-updated = greeting.replace('world', 'universe')  # New string
-print(updated)                # 'hello universe!'
-updated = greeting[:5] + ' Python' + greeting[5:]  # Slice rebuild
-print(updated)                # 'hello Python world!'
-# DELETE: replace to empty, slicing exclude
-removed = greeting.replace('world', '')  # New, removes 'world'
-print(removed)                # 'hello !' (space remains)
-removed = greeting[:6] + greeting[11:]  # Slice skip
-print(removed)                # 'hello !'
-
-# TUPLES: Immutable like strings, for fixed data. Same new-object nonsense for C/U/D.
-# Create a tuple
-coords = (1, 2, 3)
-print(coords)  # (1, 2, 3)
-# READ: Indexing, slicing, membership (new tuples for slices)
-print(coords[1])    # 2
-print(coords[0:2])  # (1, 2)
-print(2 in coords)  # True
-# CREATE: +/+= (concat to new)
-new_coords = coords + (4,)    # New tuple
-print(new_coords)             # (1, 2, 3, 4)
-# UPDATE: Slicing + concat (new tuple)
-updated = coords[:1] + (99,) + coords[2:]  # Rebuild
-print(updated)                # (1, 99, 3)
-# DELETE: Slicing exclude (new tuple)
-removed = coords[:1] + coords[2:]  # Skip index 1
-print(removed)                # (1, 3)
+# # LISTS: Mutable sequences—proper for dynamic collections.
+# fruits = ['apple', 'banana', 'cherry']
+# print(fruits)  
+# # READ: Indexing (0-based, negative reverse), slicing, membership
+# print(fruits[0])     # 'apple' (index access)
+# print(fruits[-1])    # 'cherry'
+# print(fruits[1:3])   # ['banana', 'cherry'] (slice)
+# print('banana' in fruits)  # True (membership)
+# # CREATE: append (end), insert (position), extend (multiple), +/+= (concat, new or in-place)
+# fruits.append('date')         # Add to end (in-place)
+# print(fruits)                 # ['apple', 'banana', 'cherry', 'date']
+# fruits.insert(1, 'apricot')   # Insert at index 1 (in-place)
+# print(fruits)                 # ['apple', 'apricot', 'banana', 'cherry', 'date']
+# fruits.extend(['elderberry', 'fig'])  # Add iterable (in-place)
+# print(fruits)                 # ['apple', 'apricot', 'banana', 'cherry', 'date', 'elderberry', 'fig']
+# new_fruits = fruits + ['grape']  # Concat to new list
+# print(new_fruits)             # ... + 'grape'
+# fruits += ['honeydew']        # In-place extend
+# print(fruits)                 # ... + 'honeydew'
+# # UPDATE: Assign via index/slice
+# fruits[0] = 'avocado'         # Single item
+# print(fruits)                 # ['avocado', ...]
+# fruits[1:3] = ['blueberry', 'blackberry']  # Slice replace (can change length)
+# print(fruits)                 # ['avocado', 'blueberry', 'blackberry', ...]
+# # DELETE: pop (index, returns), remove (value), del (index/slice), clear (all)
+# popped = fruits.pop(2)        # Remove/return index 2
+# print(popped)                 # 'blackberry'
+# print(fruits)                 # ['avocado', 'blueberry', ...]
+# fruits.remove('cherry')       # First value occurrence
+# print(fruits)                 # Without 'cherry'
+# del fruits[3]                 # By index
+# print(fruits)                 # Without index 3
+# del fruits[1:3]               # Slice
+# print(fruits)                 # Shorter
+# fruits.clear()                # Nuke all
+# print(fruits)                 # []
+# 
+# # STRINGS: Immutable sequences—mutations create new strings. Allocation hell.
+# # Create a string
+# greeting = "hello world"
+# print(greeting)  # 'hello world'
+# # READ: Indexing, slicing, membership (returns substrings)
+# print(greeting[0])    # 'h'
+# print(greeting[-1])   # 'd'
+# print(greeting[6:11]) # 'world'
+# print('world' in greeting)  # True
+# # CREATE: +/+= (concat), join (from iterable)
+# greeting += "!"               # New string: 'hello world!'
+# print(greeting)
+# new_greeting = greeting + " again"  # Another new
+# print(new_greeting)           # 'hello world! again'
+# words = ['hello', 'world']
+# joined = ' '.join(words)      # New from iterable
+# print(joined)                 # 'hello world'
+# # UPDATE: replace (value), slicing + concat (manual)
+# updated = greeting.replace('world', 'universe')  # New string
+# print(updated)                # 'hello universe!'
+# updated = greeting[:5] + ' Python' + greeting[5:]  # Slice rebuild
+# print(updated)                # 'hello Python world!'
+# # DELETE: replace to empty, slicing exclude
+# removed = greeting.replace('world', '')  # New, removes 'world'
+# print(removed)                # 'hello !' (space remains)
+# removed = greeting[:6] + greeting[11:]  # Slice skip
+# print(removed)                # 'hello !'
+# 
+# # TUPLES: Immutable like strings, for fixed data. Same new-object nonsense for C/U/D.
+# # Create a tuple
+# coords = (1, 2, 3)
+# print(coords)  # (1, 2, 3)
+# # READ: Indexing, slicing, membership (new tuples for slices)
+# print(coords[1])    # 2
+# print(coords[0:2])  # (1, 2)
+# print(2 in coords)  # True
+# # CREATE: +/+= (concat to new)
+# new_coords = coords + (4,)    # New tuple
+# print(new_coords)             # (1, 2, 3, 4)
+# # UPDATE: Slicing + concat (new tuple)
+# updated = coords[:1] + (99,) + coords[2:]  # Rebuild
+# print(updated)                # (1, 99, 3)
+# # DELETE: Slicing exclude (new tuple)
+# removed = coords[:1] + coords[2:]  # Skip index 1
+# print(removed)                # (1, 3)
 
 
 
