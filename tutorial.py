@@ -193,36 +193,44 @@
 
 
 
-# ================== LESSON 2: THE PYTHON DATA MODEL  =========================
-# Lesson 2.1: Dunder Methods in Native Python Data Types
+# ================== LESSON 2: THE PYTHON DATA MODEL =========================
+# Ditch examples; learn by exploring in REPL. Master this, and the rest is
+# pointless.
+# 
+#               LESSON 2.1: EXPLORING OBJECTS AND DUNDER METHODS IN THE REPL
 #
-# Python's built-ins use dunders to integrate with syntax. Study them to avoid
-# shitty implementations. Except for in this lesson, call syntax, not dunders
-# directly.
-# -------------------------------------------------------------------------------- 
-# Sequences (list, tuple, str, bytes, range)
-# l = [1, 2, 3]
-# l.__getitem__(1)      # l[1]
-# l.__setitem__(1, 99)  # l[1] = 99
-# l.__delitem__(1)      # del l[1]
-# l.__contains__(2)     # 2 in l
-# l.__len__()           # len(l)
-# it = l.__iter__()     # iter(l)
-# it.__next__()         # next(it)
-# l.__reversed__()      # reversed(l)
-# s = "abc"
-# s.__add__("def")      # s + "def"
-# s.__mul__(3)          # s * 3
-# s.__getitem__(slice(1, None))  # s[1:]
+# Start REPL: python
+#
+# 1. Create objects:
+# >>> l = [1, 2, 3]
+# >>> t = (1, 2, 3)
+# >>> s = "abc"
+# >>> d = {'a': 1}
+# >>> r = range(5)
+# >>> b = b'bytes'
 # 
-# # Mappings (dict)
-# d = {'a': 1}
-# d.__getitem__('a')    # d['a']
-# d.__setitem__('b', 2) # d['b'] = 2
-# d.__delitem__('a')    # del d['a']
-# d.__contains__('a')   # 'a' in d
-# d.__len__()           # len(d)
-# it = d.__iter__()     # iter(d) (keys)
+# 2. List attributes (dir(obj) returns all attrs/methods for obj—peek inside):
+# >>> dir(l)  # See __dunders__
+# 
+# 3. Print docs (pydoc.render_doc(obj) formats __doc__ into readable string, no pager crap):
+# >>> import pydoc
+# >>> print(pydoc.render_doc(l))                # List docs
+# >>> print(pydoc.render_doc(str))              # String docs
+# >>> print(pydoc.render_doc(dict))             # Dict docs
+# 
+# 4. Specific dunder docs:
+# >>> print(pydoc.render_doc(list.__getitem__))
+# # Or: print(list.__getitem__.__doc__)
+# # Explore: __len__, __iter__, __contains__, __add__, etc.
+# 
+# 5. Experiment (call dunders directly here only; use syntax in code):
+# >>> l.__len__()  # len(l)
+# >>> l.__getitem__(1)  # l[1]; try slice(1, None)
+# >>> s.__contains__('b')  # 'b' in s
+# >>> it = l.__iter__(); it.__next__()
+# >>> l.__setitem__(0, 99)  # l[0]=99; fails on tuple
+# >>> s.__add__("def")  # s + "def"
+# >>> s.__mul__(3)  # s * 3
 
 
 
@@ -230,62 +238,90 @@
 
 
 
+# ================== LESSON 2: THE PYTHON DATA MODEL =========================
+# Lesson 2.2: Implementing Dunder Methods in Custom Classes
+# Don't just copy built-ins like a moron—emulate them properly. RTFM at docs.python.org/3/reference/datamodel.html, you lazy bastard. The real learning happens in the REPL: Define classes, add dunders one by one, poke at 'em, see what breaks. That's how you grok why Python's object model isn't complete garbage.
 
-# Lesson 2.2: Python Dunders
-# Emulate built-ins; see docs.python.org/3/reference/datamodel.html.
-# --------------------------------------------------------------------------------
-# class MyClass:
-#     def __init__(self):
-#         self.d = [1, 2, 3]  # Demo container
-# 
-#     # Str: print(obj) or str(obj)
-#     def __str__(self):
-#         return "Nice"
-# 
-#     # Len: len(obj)
-#     def __len__(self):
-#         return len(self.d)
-# 
-#     # Getitem: obj[key]
-#     def __getitem__(self, k):
-#         return self.d[k]
-# 
-#     # Setitem: obj[key] = v
-#     def __setitem__(self, k, v):
-#         self.d[k] = v
-# 
-#     # Contains: item in obj
-#     def __contains__(self, i):
-#         return i in self.d
-# 
-#     # Iter: for x in obj
-#     def __iter__(self):
-#         return iter(self.d)
-# 
-#     # Enter: with obj (setup)
-#     def __enter__(self):
-#         # Python allows objects to add attributes at runtime
-#         # Thus, self.backup need not be in init
-#         self.backup = self.d.copy()  # Backup state
-#         return self
-# 
-#     # Exit: with obj (teardown, handles exc)
-#     def __exit__(self, *exc):
-#         self.d = self.backup  # Restore
-#         del self.backup
-#         return False  # Propagate exc
-# 
-#     # Call: obj(...)
-#     def __call__(self, *a):
-#         pass
-# 
-# # Usage: Temp mods auto-revert, no manual cleanup needed.
-# obj = MyClass()
-# with obj as mc:
-#     mc[0] = 99  # Temp change
-#     print(mc[0])
-# print(obj[0])  # Back to 1 after with
+# Fire up REPL (python in terminal). Type this crap in, experiment as you go. Add dunders incrementally—test after each, use dir(), print(pydoc.render_doc(your_class)) to inspect.
 
+# 1. Start with a bare class—boring, but baseline:
+# >>> class MyClass:
+# ...     pass
+# >>> obj = MyClass()
+# >>> dir(obj)  # Mostly inherited dunders; no custom magic yet.
+# >>> print(pydoc.render_doc(MyClass))  # Docs? Empty. Fix that later with __doc__.
+
+# 2. Add __init__ for state:
+# >>> class MyClass:
+# ...     def __init__(self): self.d = [1, 2, 3]  
+# >>> obj = MyClass()
+# >>> obj.d  # Access directly; but we'll make it sequence-like.
+
+# 3. Implement __str__ for nice printing:
+# >>> class MyClass:
+# ...     def __init__(self): self.d = [1, 2, 3]  
+# ...     def __str__(self): return "Nice object with data: " + str(self.d)
+# >>> obj = MyClass()
+# >>> print(obj)  # Test: Should show your string, not <object at 0xdeadbeef>.
+# # Experiment: str(obj), f"{obj}"—same shit.
+
+# 4. Add __len__:
+# >>> class MyClass:
+# ...     def __init__(self): self.d = [1, 2, 3]  
+# >>>     def __len__(self):
+# ...     def __init__(self): self.d = [1, 2, 3]  
+# ...         return len(self.d)
+# >>> len(obj)  # Test. Fail? Redefine class.
+
+# 5. __getitem__ for subscripting:
+# >>> class MyClass:
+# ...     def __init__(self): self.d = [1, 2, 3]  
+# >>>     def __getitem__(self, k):
+# ...         return self.d[k]
+# >>> obj[1]  # 2. Try slices: obj[1:], obj[0:2]. Boom if no slice handling—read docs, handle isinstance(k, slice).
+
+# 6. __setitem__ for assignment:
+# >>> class MyClass:
+# ...     def __init__(self): self.d = [1, 2, 3]  
+# >>>     def __setitem__(self, k, v):
+# ...         self.d[k] = v
+# >>> obj[0] = 99; print(obj[0])  # Mutate and check.
+
+# 7. __contains__ for 'in':
+# >>> class MyClass:
+# ...     def __init__(self): self.d = [1, 2, 3]  
+# >>>     def __contains__(self, i):
+# ...         return i in self.d
+# >>> 2 in obj  # True.
+
+# 8. __iter__ for looping:
+# >>> class MyClass:
+# ...     def __init__(self): self.d = [1, 2, 3]  
+# >>>     def __iter__(self):
+# ...         return iter(self.d)
+# >>> for x in obj: print(x)  # Iterates over d.
+
+# 9. Context manager: __enter__ and __exit__:
+# >>> class MyClass:
+# ...     def __init__(self): self.d = [1, 2, 3]  
+# >>>     def __enter__(self):
+# ...         self.backup = self.d.copy()  # Backup
+# ...         return self
+# >>>     def __exit__(self, *exc):
+# ...         self.d = self.backup  # Restore
+# ...         del self.backup
+# ...         return False  # Propagate exceptions
+# >>> with obj as mc:
+# ...     mc[0] = 99
+# ...     print(mc[0])  # 99
+# >>> print(obj[0])  # Back to 1. Magic—no cleanup boilerplate.
+
+# 10. __call__ to make obj callable:
+# >>> class MyClass:
+# ...     def __init__(self): self.d = [1, 2, 3]  
+# >>>     def __call__(self, *a):
+# ...         print("Called with:", a)
+# >>> obj(42, "foo")  # Like a function.
 
 
 
