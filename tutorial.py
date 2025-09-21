@@ -584,6 +584,61 @@
 
 
 
+
+"""
+
+
+# 
+# 
+# # Looping over cols
+# >>> for col in df: print(f"Column: {col}, Data: {df[col].values}")
+# # Looping over rows, as a dict of an integer index to a series row object
+# >>> for index, row in df.iterrows(): print(f"Row index: {index}, Name: {row['name']}, Age: {row['age']}")
+# # Get specific row from a df as a series object
+# >>> s = df.iloc[0] 
+# >>> print(s)
+# >>> type(s)
+# # You can directly loop over values in a series
+# >>> for value in s: print(value)
+# # Convert pandas series into a zip (to loop over key value pairs)
+# >>> szip = s.items()
+# >>> type(szip)
+# # use items() to loop over key value pairs in a series
+# >>> for index, value in szip: print(index, value)
+# # Extract a value from a series
+# >>> x = pretty_dict(s['data'])
+# # Looping over a dict
+# >>> for a in x: print(a)
+# >>> for a,b in x.items(): print(a,b)
+
+"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 """
 
 # Lesson 3: Common Programming Snippets
