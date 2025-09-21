@@ -27,84 +27,117 @@
     output or spectacular crashes. Uncomment imports, prints, whatever. Start
     with Lesson 1.1: remove the # from the print line and fix it.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    VIM BASIC REVISION: SELECTING TEXT TO WRITE
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-        ** To save part of the file, type v motion :w FILENAME **
-
-  1. Move the cursor to this line.
-
-  2. Press v and move the cursor to the fifth item below. Notice that the
-     text is highlighted.
-
-  3. Press the : character. At the bottom of the screen :'<,'> will appear.
-
-  4. Type w TEST , where TEST is a filename that does not exist yet. Verify
-     that you see :'<,'>w TEST before you press <ENTER>.
-
-  5. Vim will write the selected lines to the file TEST. Use :!dir or :!ls
-     to see it. Do not remove it yet! We will use it in the next lesson.
-
-    NOTE: Pressing v starts Visual selection. You can move the cursor around
-    to make the selection bigger or smaller. Then you can use an operator
-    to do something with the text. For example, d deletes the text.
-
-    QUICK TIP FOR THIS TUTOR: After uncommenting and editing a lesson's code,
-    select just that uncommented block (v, move to cover it), then :w! run.py
-    to dump it to run.py. Then :!python run.py to execute it right in Vim.
-    See your output or errors without leaving the editor. Efficient, no? Do this
-    per lesson—keeps shit isolated, no global fuckups.
 
 """
-# Uncomment and edit as you go—run the file after each lesson to verify.
-# Errors? Good, learn from 'em. No errors? You're lying.
-
-# ================== LESSON 1: TYPES =========================
+# ================== LESSON 1: TYPES & REPL SET UP WITH VIM ==================
 # Lesson 1.1: PRINTING PYTHON TYPES
-# 
+#
 # Types: Every single thing in Python is an object, and every object has a
 # type—check it with type(some_shit), which spits back the class that owns it.
 # And get this: types themselves are objects too, created by the metaclass type
 # (yeah, it's turtles all the way down, you recursive nightmare).
-# 
-# Covering all built-in types: None, bool, int, float, complex, str, list,
-# tuple, dict, set, frozenset, range, bytes, bytearray, memoryview, function,
-# class
+#
+# First off, if you're going to mess around with this in the Python REPL like a
+# sane person, set it up properly with vi editing mode. 
+#
+# - Step 1: Create or edit your ~/.pythonrc.py file (yeah, Python runs this on
+# interactive startup). Fire up your editor—use vim, obviously—and add this:
+#
+#       import readline
+#       readline.parse_and_bind('set editing-mode vi')
+#
+# - Step 2: Make sure this gets loaded every time you start Python interactively.
+# Add this line to your ~/.bashrc (or .bash_profile if you're on some weird
+# setup):
+#
+#       export PYTHONSTARTUP=~/.pythonrc.py
+#
+# - Step 3: Then source your bashrc to apply it immediately: source ~/.bashrc
+#
+# Now, drop into the Python REPL (just type 'python' or 'python3' in your
+# terminal), and start typing in these examples one by one. 
 # -------------------------------------------------------------------------------- 
-# x = type                                  # Type: type
-# nothing = None                            # Type: NoneType
-# is_sane = False                           # Type: bool
-# age = 55                                  # Type: int
-# pi = 3.14159                              # Type: float
-# z = 3 + 4j                                # Type: complex
-# name = "Linus"                            # Type: str
-# bugs = [42, "panic", 0.1]                 # Type: list
-# coords = (10,20)                          # Type: tuple
-# prefs = {"os":"Linux"}                    # Type: dict
-# idiots = {"user1","user2"}                # Type: set
-# hell = frozenset(["debug", "monday"])     # Type: frozenset
-# r = range(5)                              # Type: range
-# b = b'hello'                              # Type: bytes
-# ba = bytearray(b'hello')                  # Type: bytearray
-# mv = memoryview(ba)                       # Type: memoryview
+# 1. Define basic types, including the ironic type of type:
+# >>> x = type
+# >>> type(x)  # Oh, the irony: <class 'type'>
+# <class 'type'>
+# >>> nothing = None
+# >>> type(nothing)  # NoneType
+# <class 'NoneType'>
+# >>> is_sane = False
+# >>> type(is_sane)  # bool
+# <class 'bool'>
+# >>> age = 55
+# >>> type(age)  # int
+# <class 'int'>
+# >>> pi = 3.14159
+# >>> type(pi)  # float
+# <class 'float'>
+# >>> z = 3 + 4j
+# >>> type(z)  # complex
+# <class 'complex'>
+# >>> name = "Linus"
+# >>> type(name)  # str
+# <class 'str'>
 # 
-# def foo(): pass                           
-# func = foo                                # Type: Function 
-#
-# class Dog:                                # Type: type (yes, this is a type)
-#     def __init__(self, name): self.name = name
-#     def bark(self): print(f"{self.name} woofs!")
+# # 2. Collections:
+# >>> bugs = [42, "panic", 0.1]
+# >>> type(bugs)  # list
+# <class 'list'>
+# >>> coords = (10, 20)
+# >>> type(coords)  # tuple
+# <class 'tuple'>
+# >>> prefs = {"os": "Linux"}
+# >>> type(prefs)  # dict
+# <class 'dict'>
+# >>> idiots = {"user1", "user2"}
+# >>> type(idiots)  # set
+# <class 'set'>
+# >>> hell = frozenset(["debug", "monday"])
+# >>> type(hell)  # frozenset
+# <class 'frozenset'>
+# >>> r = range(5)
+# >>> type(r)  # range
+# <class 'range'>
 # 
-# dog = Dog("Fido")                         # Type: Dog
+# # 3. Binary stuff:
+# >>> b = b'hello'
+# >>> type(b)  # bytes
+# <class 'bytes'>
+# >>> ba = bytearray(b'hello')
+# >>> type(ba)  # bytearray
+# <class 'bytearray'>
+# >>> mv = memoryview(ba)
+# >>> type(mv)  # memoryview
+# <class 'memoryview'>
 # 
-# # Print individually like this
-# print(f"x\t:\t{x}\t{type(x).__name__}")
-#
-# # Or, loop over locals like this
-# for variable_name, value in list(locals().items()):
-#     if not variable_name.startswith('__'):
-#         print(f"{variable_name}\t:\t{value}\t{type(value).__name__}")
+# # 4. Functions and classes:
+# >>> def foo(): pass
+# ...
+# >>> func = foo
+# >>> type(func)  # function
+# <class 'function'>
+# 
+# >>> class Dog:
+# ...     def __init__(self, name): self.name = name
+# ...     def bark(self): print(f"{self.name} woofs!")
+# ...
+# >>> type(Dog)  # type (the class itself)
+# <class 'type'>
+# >>> dog = Dog("Fido")
+# >>> type(dog)  # Dog (instance)
+# <class '__main__.Dog'>
+# 
+# # 5. Modules are types too—import one and weep at the consistency:
+# >>> import math
+# >>> m = math
+# >>> type(m)  # module
+# <class 'module'>
+# 
+# # 6. If you're too lazy to check one by one, dump 'em all (but you should've explored already):
+# >>> for var, val in sorted(locals().items()):
+# ...     if not var.startswith('__'):
+# ...         print(f"{var}:\t{val}\t{type(val).__name__}")
 
 
 
@@ -131,7 +164,7 @@
 # to interpret and execute your objects. Try type(if) or type(+)—SyntaxError
 # city, because they're not objects, they're grammar rules etched in stone by
 # Guido's unholy hand.
-# -------------------------------------------------------------------------------- 
+# 
 # import math as m                 # import, as
 # import asyncio
 # from sys import version          # from ... import
@@ -185,7 +218,60 @@
 #     await asyncio.sleep(0)
 #     print("await")
 # asyncio.run(runner())            
+# -------------------------------------------------------------------------------- 
+# # While this will show the type
+# >>> type(5)
+# # This will throw an invalid syntax error, because + is not a type
+# >>> type(+)
+#   File "<stdin>", line 1
+#     type(+)
+#           ^
+# SyntaxError: invalid syntax
 
+
+
+
+
+
+
+
+# ============= LESSON 1.3: BUILT-IN INTROSPECTION TOOLS =====================
+#
+# Alright, you clueless kernel hackers masquerading as Python noobs, we've
+# covered types and how they're not the same as the syntactic glue holding your
+# crappy code together. Now, let's talk about actually poking around in
+# Python's guts without breaking everything—using type(), help(), dir(), and
+# since you whiny bastards asked, vars(), globals(), locals(), and id(). These
+# are your basic introspection tools, because god forbid you read the docs like
+# a normal person. They're built-ins, so no imports needed (except maybe
+# inspect if you graduate to real debugging), and they'll save you from blindly
+# guessing what the hell an object can do.
+
+#
+# Quick distinction, because I know you're too lazy to think:
+# - type(obj): Tells you the class (type) of the object. Quick and dirty.
+# - help(obj): Dumps docstrings and usage; paginates for long stuff—hit 
+#   'q' to quit.
+# - dir(obj): Lists attributes and methods—no details, just names.
+# - vars(obj): Returns the __dict__ as a dict (attributes and values); fails on 
+#   objects without one.
+# - globals(): Current global namespace dict.
+# - locals(): Current local namespace dict (same as globals() at top-level).
+# - id(obj): Unique integer ID (memory address in CPython); check for aliases.
+#
+# Exiting help()? Hit 'q'. The rest don't trap you.
+# --------------------------------------------------------------------------------
+# >>> import math
+# >>> type(math)
+# <class 'module'>
+# >>> dir(math)  # pi, sin, etc.
+# ['__doc__', ... 'ulp']  # truncated for brevity
+# >>> help(math)  # docs; q to quit
+# Help on module math: ... (hit q)
+# >>> vars(math)  # module dict
+# {'__name__': 'math', ...}
+# >>> id(math)
+# 140000000000001  # varies
 
 
 
@@ -212,25 +298,22 @@
 # 2. List attributes (dir(obj) returns all attrs/methods for obj—peek inside):
 # >>> dir(l)  # See __dunders__
 # 
-# 3. Print docs (pydoc.render_doc(obj) formats __doc__ into readable string, no pager crap):
-# >>> import pydoc
-# >>> print(pydoc.render_doc(l))                # List docs
-# >>> print(pydoc.render_doc(str))              # String docs
-# >>> print(pydoc.render_doc(dict))             # Dict docs
+# >>> help(l)                # List docs
+# >>> help(str)              # String docs
+# >>> help(dict)             # Dict docs
 # 
 # 4. Specific dunder docs:
-# >>> print(pydoc.render_doc(list.__getitem__))
-# # Or: print(list.__getitem__.__doc__)
-# # Explore: __len__, __iter__, __contains__, __add__, etc.
+# >>> help(list.__getitem__)
 # 
 # 5. Experiment (call dunders directly here only; use syntax in code):
-# >>> l.__len__()  # len(l)
-# >>> l.__getitem__(1)  # l[1]; try slice(1, None)
-# >>> s.__contains__('b')  # 'b' in s
+# >>> l.__len__()                       # len(l)
+# >>> l.__getitem__(1)                  # l[1]; try slice(1, None)
+# >>> s.__contains__('b')               # 'b' in s
 # >>> it = l.__iter__(); it.__next__()
-# >>> l.__setitem__(0, 99)  # l[0]=99; fails on tuple
-# >>> s.__add__("def")  # s + "def"
-# >>> s.__mul__(3)  # s * 3
+# >>> l.__setitem__(0, 99)              # l[0]=99; fails on tuple
+# >>> s.__add__("def")                  # s + "def"
+# >>> s.__mul__(3)                      # s * 3
+
 
 
 
@@ -240,36 +323,44 @@
 
 # ================== LESSON 2: THE PYTHON DATA MODEL =========================
 # Lesson 2.2: Implementing Dunder Methods in Custom Classes
-# Don't just copy built-ins like a moron—emulate them properly. RTFM at docs.python.org/3/reference/datamodel.html, you lazy bastard. The real learning happens in the REPL: Define classes, add dunders one by one, poke at 'em, see what breaks. That's how you grok why Python's object model isn't complete garbage.
 
-# Fire up REPL (python in terminal). Type this crap in, experiment as you go. Add dunders incrementally—test after each, use dir(), print(pydoc.render_doc(your_class)) to inspect.
+# Don't just copy built-ins like a moron—emulate them properly. RTFM at
+# docs.python.org/3/reference/datamodel.html, you lazy bastard. The real
+# learning happens in the REPL: Define classes, add dunders one by one, poke at
+# 'em, see what breaks. That's how you grok why Python's object model isn't
+# complete garbage.
+
+# Fire up REPL (python in terminal). Type this crap in, experiment as you go.
+# Add dunders incrementally—test after each, use dir(),
+# print(pydoc.render_doc(your_class)) to inspect.
 
 # 1. Start with a bare class—boring, but baseline:
 # >>> class MyClass:
+# ...     """This is my docstring, it will get printed pursuant to the
+# ...        help() method or the chained .__doc__ method"""
 # ...     pass
 # >>> obj = MyClass()
-# >>> dir(obj)  # Mostly inherited dunders; no custom magic yet.
-# >>> print(pydoc.render_doc(MyClass))  # Docs? Empty. Fix that later with __doc__.
+# >>> dir(obj)  
+# >>> help(MyClass)
+# >>> print(MyClass.__doc__)
 
 # 2. Add __init__ for state:
 # >>> class MyClass:
 # ...     def __init__(self): self.d = [1, 2, 3]  
 # >>> obj = MyClass()
-# >>> obj.d  # Access directly; but we'll make it sequence-like.
+# >>> obj.d  
 
 # 3. Implement __str__ for nice printing:
 # >>> class MyClass:
 # ...     def __init__(self): self.d = [1, 2, 3]  
 # ...     def __str__(self): return "Nice object with data: " + str(self.d)
 # >>> obj = MyClass()
-# >>> print(obj)  # Test: Should show your string, not <object at 0xdeadbeef>.
-# # Experiment: str(obj), f"{obj}"—same shit.
+# >>> print(obj)  
 
 # 4. Add __len__:
 # >>> class MyClass:
 # ...     def __init__(self): self.d = [1, 2, 3]  
-# >>>     def __len__(self):
-# ...     def __init__(self): self.d = [1, 2, 3]  
+# ...     def __len__(self):
 # ...         return len(self.d)
 # >>> len(obj)  # Test. Fail? Redefine class.
 
