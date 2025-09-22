@@ -745,6 +745,8 @@
 # Args tuple: ('extra1', 'extra2')
 # Default: bar
 # Kwargs dict: {'surprise': 'boom'}
+# # Also try:
+# >>> kernel_func(42, 'extra1', 'extra2', 'extra3', default='bar', surprise='boom', dudu='bubu')
 # Without *args/**kwargs? You'd hardcode everything like a moron, and your func
 # explodes on unexpected input. This solves variable input without try-except hell.
 
