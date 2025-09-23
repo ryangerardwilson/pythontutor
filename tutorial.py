@@ -420,111 +420,126 @@
 # --------------------------------------------------------------------------------
 # Sequences are ordered collections like lists, tuples, and strings. Sets are unordered but included here for CRUD ops.
 # # LISTS (mutable sequences)
-# >>> l = ['a', 'b', 'c']
+# >>> l = ['a', 'b', 'c', 'd', 'e']
 # # read
 # >>> l[0] # -- this calls l.__getitem__(0), grabbing the item at index 0
 # 'a'
-# >>> l[1:3] # -- this is slicing: starts at index 1 (inclusive), ends at 3 (exclusive), so grabs 'b' (index 1) and 'c' (index 2); calls l.__getitem__(slice(1,3))
+# >>> l[1:3] # -- this is slicing: starts at index 1 (inclusive), ends at 3 (exclusive), so grabs 'b' (index 1) and 'c' (index 2); calls l.__getitem__(slice(1,3,None))
 # ['b', 'c']
+# >>> l[::-1] # -- reverse slicing: starts from end, steps backwards by 1; calls l.__getitem__(slice(None,None,-1))
+# ['e', 'd', 'c', 'b', 'a']
+# >>> l[::-2] # -- reverse every other: starts from end, steps backwards by 2; calls l.__getitem__(slice(None,None,-2))
+# ['e', 'c', 'a']
 # >>> 'b' in l # -- checks membership with l.__contains__('b')
 # True
 # # create (append/extend, but here we're using concatenation)
-# >>> new = l + ['g']  # creates a new list; calls l.__add__(['g'])
+# >>> new = l + ['g'] # creates a new list; calls l.__add__(['g'])
 # >>> new
-# ['a', 'b', 'c', 'g']
-# >>> l += ['h']  # modifies l in place; calls l.__iadd__(['h'])
+# ['a', 'b', 'c', 'd', 'e', 'g']
+# >>> l += ['h'] # modifies l in place; calls l.__iadd__(['h'])
 # >>> l
-# ['a', 'b', 'c', 'h']
+# ['a', 'b', 'c', 'd', 'e', 'h']
 # # update
-# >>> l[0] = 'A'  # changes the item at index 0 in place; calls l.__setitem__(0, 'A')
+# >>> l[0] = 'A' # changes the item at index 0 in place; calls l.__setitem__(0, 'A')
 # >>> l
-# ['A', 'b', 'c', 'h']
+# ['A', 'b', 'c', 'd', 'e', 'h']
+# >>> l[1:3] = ['Y', 'Z'] # updates slice in place; calls l.__setitem__(slice(1,3,None), ['Y', 'Z'])
+# >>> l
+# ['A', 'Y', 'Z', 'd', 'e', 'h']
 # # delete
-# >>> del l[3]  # removes item at index 3; calls l.__delitem__(3)
+# >>> del l[3] # removes item at index 3; calls l.__delitem__(3)
 # >>> l
-# ['A', 'b', 'c']
-# >>> del l[1:3]  # removes slice from 1 to 3; calls l.__delitem__(slice(1,3))
+# ['A', 'Y', 'Z', 'e', 'h']
+# >>> del l[1:3] # removes slice from 1 to 3; calls l.__delitem__(slice(1,3,None))
 # >>> l
-# ['A']
-#
+# ['A', 'e', 'h']
+# 
 # # TUPLES (immutable sequences -- no in-place mods, ops create new tuples)
-# >>> t = ('a', 'b', 'c')
+# >>> t = ('a', 'b', 'c', 'd', 'e')
 # # read
 # >>> t[0] # -- t.__getitem__(0)
 # 'a'
-# >>> t[1:3] # -- slicing like lists; t.__getitem__(slice(1,3))
+# >>> t[1:3] # -- slicing like lists; t.__getitem__(slice(1,3,None))
 # ('b', 'c')
+# >>> t[::-1] # -- reverse; t.__getitem__(slice(None,None,-1))
+# ('e', 'd', 'c', 'b', 'a')
+# >>> t[::-2] # -- reverse every other; t.__getitem__(slice(None,None,-2))
+# ('e', 'c', 'a')
 # >>> 'b' in t # -- t.__contains__('b')
 # True
 # # create
-# >>> new = t + ('g',)  # creates new tuple; t.__add__(('g',))
+# >>> new = t + ('g',) # creates new tuple; t.__add__(('g',))
 # >>> new
-# ('a', 'b', 'c', 'g')
-# >>> t += ('h',)  # rebinds t to new tuple (no __iadd__ for immutables)
+# ('a', 'b', 'c', 'd', 'e', 'g')
+# >>> t += ('h',) # rebinds t to new tuple (no __iadd__ for immutables)
 # >>> t
-# ('a', 'b', 'c', 'h')
+# ('a', 'b', 'c', 'd', 'e', 'h')
 # # update -- can't, no __setitem__; fake with slicing/concat (new tuple)
-# >>> t = ('a', 'b', 'c')  # reset
-# >>> t[:1] + ('y',) + t[1:]  # new tuple; __getitem__ and __add__
+# >>> t = ('a', 'b', 'c') # reset
+# >>> t[:1] + ('y',) + t[1:] # new tuple; __getitem__ and __add__
 # ('a', 'y', 'b', 'c')
 # # delete -- can't in place, no __delitem__; fake with slicing (new tuple)
-# >>> t[:1] + t[2:]  # "ac"; __getitem__ and __add__
+# >>> t[:1] + t[2:] # "ac"; __getitem__ and __add__
 # ('a', 'c')
-#
+# 
 # # STRINGS (immutable sequences -- similar to tuples)
-# >>> s = "abc"
+# >>> s = "abcde"
 # # read
 # >>> s[0] # -- s.__getitem__(0)
 # 'a'
-# >>> s[1:3] # -- slicing; s.__getitem__(slice(1,3))
+# >>> s[1:3] # -- slicing; s.__getitem__(slice(1,3,None))
 # 'bc'
+# >>> s[::-1] # -- reverse; s.__getitem__(slice(None,None,-1))
+# 'edcba'
+# >>> s[::-2] # -- reverse every other; s.__getitem__(slice(None,None,-2))
+# 'eca'
 # >>> 'b' in s # -- s.__contains__('b')
 # True
 # # create
-# >>> new = s + "e"  # new string; s.__add__("e")
+# >>> new = s + "g" # new string; s.__add__("g")
 # >>> new
-# 'abce'
-# >>> s += "d" # new string assigned back to s; effectively s = s.__add__("d") since no __iadd__ for immutables, but it rebinds
+# 'abcdeg'
+# >>> s += "h" # new string assigned back to s; effectively s = s.__add__("h") since no __iadd__ for immutables, but it rebinds
 # >>> s
-# 'abcd'
+# 'abcdeh'
 # # update (fake it with slicing, since no __setitem__ -- strings don't let you mutate)
-# >>> s = "abc"  # reset for this example
-# >>> s[:1] + 'y' + s[1:]  # creates new string "aybc" or whatever; uses __getitem__ for slices and __add__ for concat
+# >>> s = "abc" # reset for this example
+# >>> s[:1] + 'y' + s[1:] # creates new string "aybc" or whatever; uses __getitem__ for slices and __add__ for concat
 # 'aybc'
 # # delete (new string via slicing) - we don't use this for deleting items in lists, as it
 # # creates a whole new object. But we make peace with this inefficiency for
 # # strings, because strings are immutable and have no __delitem__
-# >>> s = "abc"  # reset for this example
-# >>> s[:1] + s[2:]  # "ac"; again, __getitem__ and __add__
+# >>> s = "abc" # reset for this example
+# >>> s[:1] + s[2:] # "ac"; again, __getitem__ and __add__
 # 'ac'
-#
+# 
 # # SETS (mutable but unordered -- no indexing/slicing, so CRUD is different)
 # >>> se = {'a', 'b', 'c'}
 # # read -- no indices, just membership/iteration
 # >>> 'b' in se # -- se.__contains__('b')
 # True
 # # create
-# >>> se.add('g')  # in place; no dunder, method call
+# >>> se.add('g') # in place; no dunder, method call
 # >>> se
 # {'a', 'b', 'c', 'g'}
-# >>> new = se | {'h'}  # new set; se.__or__({'h'})
+# >>> new = se | {'h'} # new set; se.__or__({'h'})
 # >>> new
 # {'a', 'b', 'c', 'g', 'h'}
-# >>> se |= {'i'}  # in place; se.__ior__({'i'})
+# >>> se |= {'i'} # in place; se.__ior__({'i'})
 # >>> se
 # {'a', 'b', 'c', 'g', 'i'}
 # # update -- no direct update since no keys/indices; remove then add
-# >>> se.remove('a')  # remove 'a'
-# >>> se.add('A')  # add 'A'
+# >>> se.remove('a') # remove 'a'
+# >>> se.add('A') # add 'A'
 # >>> se
 # {'A', 'b', 'c', 'g', 'i'}
 # # delete
-# >>> se.remove('i')  # removes if exists, else KeyError; no dunder, method
+# >>> se.remove('i') # removes if exists, else KeyError; no dunder, method
 # >>> se
 # {'A', 'b', 'c', 'g'}
-# >>> se.discard('z')  # removes if exists, no error; method
-# >>> se.pop()  # removes arbitrary element, returns it
-# 'A'  # or whatever
+# >>> se.discard('z') # removes if exists, no error; method
+# >>> se.pop() # removes arbitrary element, returns it
+# 'A' # or whatever
 
 
 
@@ -535,35 +550,36 @@
 # Lesson 3.2: CRUD on mappings
 # --------------------------------------------------------------------------------
 # Mappings are key-value collections like dicts.
-# # DICTS (mutable mappings)
-# >>> d = {'a': 1, 'b': 2, 'c': 3}
+# DICTS (mutable mappings)
+# >>> d = {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5}
 # # read
 # >>> d['a'] # -- d.__getitem__('a')
 # 1
 # >>> 'b' in d # -- d.__contains__('b')
 # True
+# # no slicing support, as dicts are mappings, not sequences; __getitem__ expects hashable keys, not slices
 # # create
-# >>> d['g'] = 7  # adds new key-value; d.__setitem__('g', 7)
+# >>> d['g'] = 7 # adds new key-value; d.__setitem__('g', 7)
 # >>> d
-# {'a': 1, 'b': 2, 'c': 3, 'g': 7}
-# >>> new = {**d, 'h': 8}  # new dict (or d | {'h': 8} in Python 3.9+; d.__or__({'h': 8}))
+# {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'g': 7}
+# >>> new = {**d, 'h': 8} # new dict (or d | {'h': 8} in Python 3.9+; d.__or__({'h': 8}))
 # >>> new
-# {'a': 1, 'b': 2, 'c': 3, 'g': 7, 'h': 8}
-# >>> d |= {'i': 9}  # in place (Python 3.9+; d.__ior__({'i': 9}))
+# {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'g': 7, 'h': 8}
+# >>> d |= {'i': 9} # in place (Python 3.9+; d.__ior__({'i': 9}))
 # >>> d
-# {'a': 1, 'b': 2, 'c': 3, 'g': 7, 'i': 9}
+# {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'g': 7, 'i': 9}
 # # update
-# >>> d['a'] = 10  # updates existing key; d.__setitem__('a', 10)
+# >>> d['a'] = 10 # updates existing key; d.__setitem__('a', 10)
 # >>> d
-# {'a': 10, 'b': 2, 'c': 3, 'g': 7, 'i': 9}
+# {'a': 10, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'g': 7, 'i': 9}
 # # delete
-# >>> del d['i']  # removes key; d.__delitem__('i')
+# >>> del d['i'] # removes key; d.__delitem__('i')
 # >>> d
-# {'a': 10, 'b': 2, 'c': 3, 'g': 7}
-# >>> d.pop('g')  # removes and returns value; method
+# {'a': 10, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'g': 7}
+# >>> d.pop('g') # removes and returns value; method
 # 7
 # >>> d
-# {'a': 10, 'b': 2, 'c': 3}
+# {'a': 10, 'b': 2, 'c': 3, 'd': 4, 'e': 5}
 
 
 
@@ -840,10 +856,6 @@
 # >>> print(transposed_manual)
 # [(1, 4, 7), (2, 5, 8), (3, 6, 9)]
 
-# See? Zip is simple, efficient, and keeps your code from looking like a tangled 
-# mess of kernel bugs. If you can't wrap your head around this, go back to 
-# spreadsheets—you're not ready for real data wrangling.
-
 
 
 
@@ -853,34 +865,50 @@
 # Lesson 4.2: PRE-PANDAS - PART II - 1D VS MULTI-DIMENSIONAL DATA
 # --------------------------------------------------------------------------------
 # Now that you've got zip under your belt, let's distinguish between one-dimensional
-# and multi-dimensional data. This ain't rocket science, but if you screw it up,
-# your code will look like a kernel panic waiting to happen. We'll build simple
-# structures that mimic Pandas Series and DataFrames, so you see the patterns
-# without the black-box bullshit.
+# and multi-dimensional data. This ain't rocket science, but screw it up and your
+# code's a mess. We'll mimic Pandas Series and DataFrames basics without the bloat.
+# "Better" structure depends on data: 
+# - use simple lists for 1d data 
+# - nested lists for 2d uniform grids without column labels (fast, simple);
+# - dicts of lists for 2d labeled data. 
 
-# 1. Mappings (like Dicts) are good enough for one dimensional data
-# Let's say you have a simple list of data and labels for the data. You could
-# store a mapping of the data and labels in a simple dict. No need for anything
-# fancier. This is like a 1D array or Series: one set of values with labels.
-# >>> data = [10, 20, 30] # Values
-# >>> labels = ['a', 'b', 'c'] # Index
+# 1. Mappings (like Dicts) for One-Dimensional Data
+# Simple values with labels? Dict it. Like a 1D Series: fast key lookups, but if
+# no labels needed, a plain list beats dict overhead.
+# >>> data = [10, 20, 30]  # Values
+# >>> labels = ['a', 'b', 'c']  # Index
 # >>> labelled_data = dict(zip(labels, data))
-# >>> type(labelled_data)
-# <class 'dict'>
-
-# 2. Multi-Dimensional Data: Lists of Lists and Dicts (DF Prototype)
-# However, if you have more than one list of data, we need to be more creative
-# - we can either simply put all lists in a list of lists called table. Or, we
-# can store the table as a dict. This is multi-dimensional: rows and columns,
-# like a table or DataFrame. Multiple columns mean multiple dimensions.
-# >>> data1 = ['Alice',30]
-# >>> data2 = ['Bob',25]
-# >>> labels = ['name','age']
-# >>> table = [labels, data1, data2]
-# >>> dict_table = {label: list(values) for label, values in zip(labels, zip(*[data1, data2]))}
-# >>> print(table, dict_table)
-
-
+# >>> print(labelled_data)
+# {'a': 10, 'b': 20, 'c': 30}
+# Zipping to a list flattens to tuples—loses key-value distinction. Stick to dict.
+# 
+# 2. Multi-Dimensional Data: Nested Lists vs. Dicts of Lists (DF Prototype)
+# For uniform grids (rows/cols all same length, no gaps—like matrices, image pixels,
+# game boards, or calendars), nested lists: compact, O(1) index access, easy math.
+# Example: A 3x3 matrix for, say, a tic-tac-toe board or simple pixel grid.
+# >>> grid = [
+# ...     [1, 2, 3],  # Row 1
+# ...     [4, 5, 6],  # Row 2
+# ...     [7, 8, 9]   # Row 3
+# ... ]
+# >>> print(grid)
+# [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+# Access: grid[1][2] == 6 (row 1, col 2—zero-indexed, don't botch it).
+# For labels or irregularity, dict of lists: key-based, flexible.
+# Don't overcomplicate—use NumPy/Pandas for real work.
+# >>> col_labels = ['name', 'age']  # Column labels
+# >>> row1 = ['Alice', 30]         # Row data
+# >>> row2 = ['Bob', 25]
+# Nested lists (row-oriented, headers first):
+# >>> table = [col_labels, row1, row2]
+# >>> print(table)
+# [['name', 'age'], ['Alice', 30], ['Bob', 25]]
+# Access: table[1][0] == 'Alice'.
+# 
+# Dict of lists (column-oriented, via zip):
+# >>> dict_table = {label: list(values) for label, values in zip(col_labels, zip(*[row1, row2]))}
+# >>> print(dict_table)
+# {'name': ['Alice', 'Bob'], 'age': [30, 25]}
 
 
 
@@ -893,20 +921,15 @@
 
 # Listen up, you kernel-panicking code monkeys. If you think Pandas DFs are
 # magic, wake up—they're built on multidimensional arrays, which in pure Python
-# are just nested lists that suck for performance but build your intuition like
-# 4.1. This lesson rips into traversing these beasts: rows, columns, zigzags,
+# are just nested lists that suck for performance but build your intuition.
+# This lesson rips into traversing these beasts: rows, columns, zigzags,
 # transposes, adjacent checks—like patching a filesystem without corrupting
 # data. Why? Teaches you to manipulate grids without loops exploding your RAM,
 # prepping for NumPy's vectorized glory in later crap. No fluff—bash these into
 # REPL, fix the "problems" like a real hacker, or go back to single-dim lists
 # and cry.
 
-# We'll use nested lists as "arrays" (row-major), tie to 4.1's tables. Problems
-# inspired by real-world idiocy: apartment buildings, bookshelves, restaurants,
-# games, hikes. Master traversal, or your Pandas slices will segfault your
-# brain.
-
-# 1. Exploring Dimensions: Basics of Multi-Dim Arrays (Unit 1 Vibes)
+# 1. Exploring Dimensions: Basics of Multi-Dim Arrays 
 # Nested lists as grids—index [row][col]. Update, identify, print like directory ops.
 # Why? Builds shape awareness—prevents "why out of bounds?" idiocy.
 # >>> building = [['Apt1', 'Alice'], ['Apt2', 'Bob'], ['Apt3', 'Empty']]  # Simple directory
@@ -928,7 +951,7 @@
 # Apt3: Empty
 # Apt4: Dave
 
-# 2. Columnar ZigZag and Reverse Traversal (Unit 2 Shenanigans)
+# 2. Columnar ZigZag and Reverse Traversal 
 # Traverse columns, reverse, zigzag—like scanning bookshelves without dropping books.
 # Why? Teaches non-linear traversal—useful for matrices in games/ML without full loops.
 # >>> bookshelf = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]  # Matrix as shelves
@@ -956,7 +979,7 @@
 # >>> zig
 # [1, 2, 3, 6, 5, 4, 7, 8, 9]
 
-# 3. Transposing Matrices (Unit 3 Transpose Hell)
+# 3. Transposing Matrices 
 # Flip rows/columns—like rearranging seats without chaos.
 # Why? Data reshaping intuition—Pandas pivot/transpose builds on this.
 # >>> seating = [[1, 2, 3], [4, 5, 6]]  # Restaurant seats
@@ -974,7 +997,7 @@
 # >>> reflect
 # [[4, 2], [3, 1]]  # Or proper reflect logic
 
-# 4. Checking Adjacent Cells in 2D Arrays (Unit 4 Game Board Crap)
+# 4. Checking Adjacent Cells in 2D Arrays 
 # Check neighbors—up/down/left/right, like board games without off-board crashes.
 # Why? Graph-like traversal intuition—ML/Pandas adjacent ops.
 # >>> board = [['.', 'X', '.'], ['.', '.', 'X'], ['X', '.', '.']]  # Game board
@@ -1004,7 +1027,7 @@
 # ...
 # # Example sub = board[0:2][0:2] etc.
 
-# 5. Navigating Adjacent Cells in Grid (Unit 5 Hike Bullshit)
+# 5. Navigating Adjacent Cells in Grid 
 # Traverse adj with diagonals, elevation logic—like pathfinding without getting lost.
 # Why? BFS/DFS intuition for grids—Pandas spatial crap.
 # >>> grid = [[1,2,3], [4,5,6], [7,8,9]]  # Elevation grid
@@ -1052,7 +1075,6 @@
 # >>> ascend_mountain((0,0))
 # [(0,0), (2,2)]  # Path to peak
 
-# There, now traverse multi-dim without making me puke. Builds on 4.1—grids as nested, but ready for NumPy. Traverse badly now, and your code deserves a kernel oops. Hack on, or go fix Windows NT.
 
 
 
