@@ -3,38 +3,40 @@
 ===============================================================================
         = W e l c o m e t o t h e P Y T H O N T U T O R A D V A N C E D =
 ===============================================================================
-    This is a no-bullshit Python tutor ripped off from that VimTutor madness, but
-    for Python newbies who think 'print("hello")' is rocket science. Cooked up
-    because stock tutorials bore me to tears with their hand-holding crap. Lessons
-    1-6: Basics you'll actually use without wanting to kernel-panic. Lesson 7:
-    Where we get real—decorators, context managers, and other wizardry that makes
-    your code not suck. Edit this file in your editor of choice (vim, duh), fill
-    in the blanks as told, save, then run 'python this_file.py' to see if you're
-    not a complete idiot. It'll execute everything and spit out results or errors
-    (errors mean you fucked up—fix it). Each run starts fresh if you copy from
-    original, but experiment or die bored.
-    Takes 30-45 mins if you're not spacing out. Make a copy to trash; this one's
-    your boot camp. Type the code, run it, feel the burn—or just read like a wimp
-    and wonder why your scripts segfault.
-    Hit your editor, scroll to Lesson 1.1, edit that shit, save, run from terminal.
-    Let's make you not a scripting zombie.
-    NOTE: Everything below is commented out. Uncomment sections as you go through
-    lessons. Only your uncommented code will run—no spam, just your glorious
-    output or spectacular crashes. Uncomment imports, prints, whatever. Start
-    with Lesson 1.1: remove the # from the print line and fix it.
+    
+    This is a no-bullshit Python tutor ripped off from that VimTutor madness,
+    but for Python newbies who think 'print("hello")' is rocket science. Cooked
+    up because stock tutorials bore me to tears with their hand-holding crap.
+    Lessons 1-6: Basics you'll actually use without wanting to kernel-panic.
+    Lesson 7: Where we get real—decorators, context managers, and other
+    wizardry that makes your code not suck. Edit this file in your editor of
+    choice (vim, duh), fill in the blanks as told, save, then run 'python
+    this_file.py' to see if you're not a complete idiot. It'll execute
+    everything and spit out results or errors (errors mean you fucked up—fix
+    it). Each run starts fresh if you copy from original, but experiment or die
+    bored.  Takes 30-45 mins if you're not spacing out. Make a copy to trash;
+    this one's your boot camp. Type the code, run it, feel the burn—or just
+    read like a wimp and wonder why your scripts segfault.  Hit your editor,
+    scroll to Lesson 1.1, edit that shit, save, run from terminal.  Let's make
+    you not a scripting zombie.  NOTE: Everything below is commented out.
+    Uncomment sections as you go through lessons. Only your uncommented code
+    will run—no spam, just your glorious output or spectacular crashes.
+    Uncomment imports, prints, whatever. Start with Lesson 1.1: remove the #
+    from the print line and fix it.
 
-    First off, if you're going to mess around with this in the Python REPL like a
-    sane person, set it up properly with vi editing mode.
+    First off, if you're going to mess around with this in the Python REPL like
+    a sane person, set it up properly with vi editing mode.
 
-    - Step 1: Create or edit your ~/.pythonrc.py file (yeah, Python runs this on
-    interactive startup). Fire up your editor—use vim, obviously—and add this:
+    - Step 1: Create or edit your ~/.pythonrc.py file (yeah, Python runs this
+      on interactive startup). Fire up your editor—use vim, obviously—and add
+      this:
 
     import readline
     readline.parse_and_bind('set editing-mode vi')
 
-    - Step 2: Make sure this gets loaded every time you start Python interactively.
-    Add this line to your ~/.bashrc (or .bash_profile if you're on some weird
-    setup):
+    - Step 2: Make sure this gets loaded every time you start Python
+      interactively.  Add this line to your ~/.bashrc (or .bash_profile if
+      you're on some weird setup):
 
     export PYTHONSTARTUP=~/.pythonrc.py
 
@@ -42,6 +44,7 @@
 
     Now, drop into the Python REPL (just type 'python' or 'python3' in your
     terminal), and start typing in these examples one by one.
+
 """
 # ================== LESSON 1: TYPES ==================
 # Lesson 1.1: PRINTING PYTHON TYPES
