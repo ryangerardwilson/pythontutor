@@ -835,10 +835,10 @@
 # Unzipping: Use * to unpack and reverse the zip magic
 # >>> pairs = list(zip(names,ages))
 # >>> unzipped_names, unzipped_ages = zip(*pairs)
-# >>> print(list(unzipped_names))
-# ['Alice', 'Bob', 'Charlie']
-# >>> print(list(unzipped_ages))
-# [30, 25, 35]
+# >>> print(unzipped_names)
+# ('Alice', 'Bob', 'Charlie')
+# >>> print(unzipped_ages)
+# (30, 25, 35)
 
 # Real-world hack: Transposing a matrix without loops that crawl like molasses
 # >>> matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
