@@ -835,7 +835,10 @@
 # >>> print(list(zipped_uneven))
 # [('Alice', 30, 170), ('Bob', 25, 180)]
 
-# Unzipping: Use * to unpack and reverse the zip magic
+# Unzipping: To unzip, we need to type cast the thing that we zipped, as a list
+# - and then, follow it up with a * argument in zip, to unpack and reverse what
+# we had intially had zipped. So basically, anything zipped can be unzipped by
+# type casting as a list, and then re-zipping.
 # >>> pairs = list(zip(names,ages))
 # >>> unzipped_names, unzipped_ages = zip(*pairs)
 # >>> print(unzipped_names)
