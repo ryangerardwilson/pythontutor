@@ -999,7 +999,7 @@
 # >>> one_line_trans
 # [[1, 4], [2, 5], [3, 6]]
 # >>> square = [[1, 2], [3, 4]]  # Reflect Over Secondary Diagonal
-# >>> reflect = [[square[j][i] for j in range(len(square)-1, -1, -1)] for i in range(len(square))]
+# >>> reflect = [[square[j][i] for j in range(len(square)-1, -1, -1)] for i in range(len(square)-1, -1, -1)]
 # >>> reflect
 # [[4, 2], [3, 1]]  # Or proper reflect logic
 
