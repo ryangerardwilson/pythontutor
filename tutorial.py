@@ -912,7 +912,7 @@
 # Access: table[1][0] == 'Alice'.
 # 
 # Dict of lists (column-oriented, via zip):
-# >>> dict_table = {label: list(values) for label, values in zip(col_labels, zip(*[row1, row2]))}
+# >>> dict_table = {label: list(values) for label, values in zip(col_labels, zip(row1, row2))}
 # >>> print(dict_table)
 # {'name': ['Alice', 'Bob'], 'age': [30, 25]}
 
