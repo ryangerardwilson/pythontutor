@@ -1006,20 +1006,51 @@
 # 4. Checking Adjacent Cells in 2D Arrays 
 # Check neighbors—up/down/left/right, like board games without off-board crashes.
 # Why? Graph-like traversal intuition—ML/Pandas adjacent ops.
-# >>> board = [['.', 'X', '.'], ['.', '.', 'X'], ['X', '.', '.']]  # Game board
+# >>> board = [
+# ...   ['.', 'X', '.'], 
+# ...   ['.', '.', 'X'], 
+# ...   ['X', '.', '.']] 
+
+# Rule A: Now, let's consider adding this rule: You can move to or from a cell
+# if it’s horizontally adjacent to a 'X' occupied call.
+
 # >>> def has_horizontal_move(i, j):  # Horizontal Move Identification
 # ...     if j > 0 and board[i][j-1] == 'X': return True
 # ...     if j < len(board[0])-1 and board[i][j+1] == 'X': return True
 # ...     return False
 # ...
 # >>> has_horizontal_move(0, 0)
-# False
-# >>> landing = [(i,j) for i in range(len(board)) for j in range(len(board[0])) if board[i][j] == '.' and any(board[x][y] == 'X' for x,y in [(i-1,j),(i+1,j),(i,j-1),(i,j+1)] if 0<=x<len(board) and 0<=y<len(board[0]))]  # Spotting Landing Area—adj to X
+# True
+
+# Rule B: Now, lets consider adding this rule: You can 'land' on any cell, that
+# is adjacent (horizontally, or vertically) to at least one X.
+
+# >>> landing = [(i,j) 
+# ...     for i in range(len(board)) 
+# ...     for j in range(len(board[0])) 
+# ...     if board[i][j] == '.' and any(board[x][y] == 'X' 
+# ...     for x,y in [(i-1,j),(i+1,j),(i,j-1),(i,j+1)] 
+# ...     if 0<=x<len(board) and 0<=y<len(board[0]))
+# ... ]  
 # >>> landing
-# [(0,0), (0,2), (1,0), (1,1), (2,1)]
-# >>> def strategic(i, j): return sum(1 for dx,dy in [(-1,0),(1,0),(0,-1),(0,1)] if 0<=i+dx<len(board) and 0<=j+dy<len(board[0]) and board[i+dx][j+dy] == '.')  # Assessing Strategic Placement—empty adj
+# [(0, 0), (0, 2), (1, 0), (1, 1), (2, 1), (2, 2)] 
+
+# Rule C: A cell's strategic value is the count of its empty neighbors i.e.
+# Neighbors with '.'.
+
+# >>> def strategic(i, j): 
+# ...     return sum(1 
+# ...          for dx,dy in [(-1,0),(1,0),(0,-1),(0,1)] 
+# ...          if 0<=i+dx<len(board) and 0<=j+dy<len(board[0]) and board[i+dx][j+dy] == '.'
+# ...      ) 
 # >>> strategic(1,1)
-# 3
+# 2
+
+# Rule D: If we land on any cell in compliace with Rule B, then there may be
+# one or more neighbouring 'X' cells. In such circumstances, the next move
+# (i.e. the 'X' cell to which we may move) is decided by this order or
+# precedence: up > down > left > right.
+
 # >>> def next_move(i, j):  # Magical Chessboard Next Move—find adj X or something
 # ...     for dx,dy in [(-1,0),(1,0),(0,-1),(0,1)]:
 # ...         x, y = i+dx, j+dy
@@ -1027,11 +1058,10 @@
 # ...             return (x,y)
 # ...
 # >>> next_move(0,0)
-# None
-# >>> def count_corner_e(sub):  # Counting Corner 'E's in Submatrices—assume 'E' for empty
-# ...     return sum(1 for r in [0, len(sub)-1] for c in [0, len(sub[0])-1] if sub[r][c] == 'E')
-# ...
-# # Example sub = board[0:2][0:2] etc.
+# (0, 1) 
+# >>> next_move(0,2)
+# (1, 2)
+
 
 # 5. Navigating Adjacent Cells in Grid 
 # Traverse adj with diagonals, elevation logic—like pathfinding without getting lost.
