@@ -973,11 +973,6 @@
 # [1, 2, 3]
 # [6, 5, 4]
 # [7, 8, 9]
-# >>> columns = list(zip(*bookshelf))  # Vertical Library Traverse—columns
-# >>> for col in columns: print(col)
-# (1, 4, 7)
-# (2, 5, 8)
-# (3, 6, 9)
 # >>> zig = []  # Zigzag Bookshelf Traversal—full collect
 # >>> for i, row in enumerate(bookshelf):
 # ...     zig.extend(row if i % 2 == 0 else row[::-1])
