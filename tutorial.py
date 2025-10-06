@@ -923,7 +923,7 @@
 
 
 # Lesson 4.3: PRE-PANDAS PART III - MULTIDIMENSIONAL ARRAYS AND THEIR TRAVERSAL
-# --------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 # Listen up, you kernel-panicking code monkeys. If you think Pandas DFs are
 # magic, wake up—they're built on multidimensional arrays, which in pure Python
@@ -973,7 +973,16 @@
 # [1, 2, 3]
 # [6, 5, 4]
 # [7, 8, 9]
-# >>> zig = []  # Zigzag Bookshelf Traversal—full collect
+#
+# For a Zigzag Bookshelf Traversal
+# - we use extend instead of append. Because if you used append, you'd get a
+# nested mess like [[1,2,3],[6,5,4],[7,8,9]]—useless for a flat zigzag
+# traversal. Extend slaps each row's elements (or reversed) directly into the
+# list, giving the clean [1,2,3,6,5,4,7,8,9] you want.
+# - Also, note that enumerate: wraps the list in an enumerate object that spits
+# out tuples: (index, item). In the below code, i is the row number (0-based),
+# row is the actual row.
+# >>> zig = [] 
 # >>> for i, row in enumerate(bookshelf):
 # ...     zig.extend(row if i % 2 == 0 else row[::-1])
 # ...
