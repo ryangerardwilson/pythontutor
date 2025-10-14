@@ -3,7 +3,7 @@
 ===============================================================================
         = W e l c o m e t o t h e P Y T H O N T U T O R A D V A N C E D =
 ===============================================================================
-    
+
     This is a no-bullshit Python tutor ripped off from that VimTutor madness,
     but for Python newbies who think 'print("hello")' is rocket science. Cooked
     up because stock tutorials bore me to tears with their hand-holding crap.
@@ -138,19 +138,13 @@
 # ... print(f"{var}:\t{val}\t{type(val).__name__}")
 
 
-
-
-
-
-
-
 # ============= LESSON 1.2: TYPES VERSUS SYNTAX  =====================
-# 
+#
 # Python's got two big buckets: objects (which all have types, as we've beaten
 # into your skull in the last lesson), and syntax (the control flow crap like
 # keywords, operators, and punctuation that glues it all together without
-# turning your code into a syntax-error shitstorm). 
-# 
+# turning your code into a syntax-error shitstorm).
+#
 # - Objects/Types: The meat—ints, strings, classes, your barking dog instances,
 # enums, functions, everything you can assign to a variable, pass around, or
 # type()-check. These are runtime citizens, born from classes (which are types
@@ -163,40 +157,40 @@
 # to interpret and execute your objects. Try type(if) or type(+)—SyntaxError
 # city, because they're not objects, they're grammar rules etched in stone by
 # Guido's unholy hand.
-# 
+#
 # import math as m                 # import, as
 # import asyncio
 # from sys import version          # from ... import
-# 
+#
 # async def demo(x: int = 5):      # async, def, :, =, pass
 #     pass
-# 
+#
 # class Dummy:                     # class
 #     def method(self): return 42  # return
-# 
+#
 # try: 4 + 5                       # try
 # except Exception as e: print(e)  # except, as
 # finally: print(7)                # finally
-# 
+#
 # i, x = 5, 10                     # , and =
 # for i in range(x):               # for, in
-#     if x > 0 and x != 0: 
+#     if x > 0 and x != 0:
 #         continue                 # continue
-#     elif x <= 0: 
+#     elif x <= 0:
 #         raise ValueError("Oops") # raise
 #     else: break                  # break
-# 
+#
 # while i < 3 or i == 2: i += 1    # while, <, or, ==
-# 
+#
 # with open('temp.txt','w') as f:  # with, as
 #     f.write(str(i))
-# 
+#
 # assert x is not None             # assert, is not
 # f = lambda y: y+1                # lambda
 # print(f"X: {x}")                 # f-string, {}
-# 
+#
 # del x                            # del
-# 
+#
 # g_var = 10
 # def outer():
 #     global g_var; g_var += 1     # global
@@ -206,18 +200,18 @@
 #         yield g_var              # yield
 #     return inner
 # print(next(outer()()))
-# 
-# def decorator(fn): 
+#
+# def decorator(fn):
 #     return lambda *a,**k: fn(*a,**k)    # lambda
 # @decorator                              # @ before the decorator
 # def some_coroutine(): return "done"
-# 
-# async def runner(): 
-#     await demo()                # await 
+#
+# async def runner():
+#     await demo()                # await
 #     await asyncio.sleep(0)
 #     print("await")
-# asyncio.run(runner())            
-# -------------------------------------------------------------------------------- 
+# asyncio.run(runner())
+# --------------------------------------------------------------------------------
 # # While this will show the type
 # >>> type(5)
 # # This will throw an invalid syntax error, because + is not a type
@@ -226,12 +220,6 @@
 #     type(+)
 #           ^
 # SyntaxError: invalid syntax
-
-
-
-
-
-
 
 
 # ============= LESSON 1.3: BUILT-IN INTROSPECTION TOOLS =====================
@@ -248,10 +236,10 @@
 #
 # Quick distinction, because I know you're too lazy to think:
 # - type(obj): Tells you the class (type) of the object. Quick and dirty.
-# - help(obj): Dumps docstrings and usage; paginates for long stuff—hit 
+# - help(obj): Dumps docstrings and usage; paginates for long stuff—hit
 #   'q' to quit.
 # - dir(obj): Lists attributes and methods—no details, just names.
-# - vars(obj): Returns the __dict__ as a dict (attributes and values); fails on 
+# - vars(obj): Returns the __dict__ as a dict (attributes and values); fails on
 #   objects without one.
 # - globals(): Current global namespace dict.
 # - locals(): Current local namespace dict (same as globals() at top-level).
@@ -272,15 +260,10 @@
 # 140000000000001  # varies
 
 
-
-
-
-
-
 # ================== LESSON 2: THE PYTHON DATA MODEL =========================
 # Ditch examples; learn by exploring in REPL. Master this, and the rest is
 # pointless.
-# 
+#
 #               LESSON 2.1: EXPLORING OBJECTS AND DUNDER METHODS IN THE REPL
 #
 # Start REPL: python
@@ -292,17 +275,17 @@
 # >>> d = {'a': 1}
 # >>> r = range(5)
 # >>> b = b'bytes'
-# 
+#
 # 2. List attributes (dir(obj) returns all attrs/methods for obj—peek inside):
 # >>> dir(l)  # See __dunders__
-# 
+#
 # >>> help(l)                # List docs
 # >>> help(str)              # String docs
 # >>> help(dict)             # Dict docs
-# 
+#
 # 4. Specific dunder docs:
 # >>> help(list.__getitem__)
-# 
+#
 # 5. Experiment (call dunders directly here only; use syntax in code):
 # >>> l.__len__()                       # len(l)
 # >>> l.__getitem__(1)                  # l[1]; try slice(1, None)
@@ -311,12 +294,6 @@
 # >>> l.__setitem__(0, 99)              # l[0]=99; fails on tuple
 # >>> s.__add__("def")                  # s + "def"
 # >>> s.__mul__(3)                      # s * 3
-
-
-
-
-
-
 
 
 # ================== LESSON 2: THE PYTHON DATA MODEL =========================
@@ -338,61 +315,61 @@
 # ...        help() method or the chained .__doc__ method"""
 # ...     pass
 # >>> obj = MyClass()
-# >>> dir(obj)  
+# >>> dir(obj)
 # >>> help(MyClass)
 # >>> print(MyClass.__doc__)
 
 # 2. Add __init__ for state:
 # >>> class MyClass:
-# ...     def __init__(self): self.d = [1, 2, 3]  
+# ...     def __init__(self): self.d = [1, 2, 3]
 # >>> obj = MyClass()
-# >>> obj.d  
+# >>> obj.d
 
 # 3. Implement __str__ for nice printing:
 # >>> class MyClass:
-# ...     def __init__(self): self.d = [1, 2, 3]  
+# ...     def __init__(self): self.d = [1, 2, 3]
 # ...     def __str__(self): return "Nice object with data: " + str(self.d)
 # >>> obj = MyClass()
-# >>> print(obj)  
+# >>> print(obj)
 
 # 4. Add __len__:
 # >>> class MyClass:
-# ...     def __init__(self): self.d = [1, 2, 3]  
+# ...     def __init__(self): self.d = [1, 2, 3]
 # ...     def __len__(self):
 # ...         return len(self.d)
 # >>> len(obj)  # Test. Fail? Redefine class.
 
 # 5. __getitem__ for subscripting:
 # >>> class MyClass:
-# ...     def __init__(self): self.d = [1, 2, 3]  
+# ...     def __init__(self): self.d = [1, 2, 3]
 # >>>     def __getitem__(self, k):
 # ...         return self.d[k]
 # >>> obj[1]  # 2. Try slices: obj[1:], obj[0:2]. Boom if no slice handling—read docs, handle isinstance(k, slice).
 
 # 6. __setitem__ for assignment:
 # >>> class MyClass:
-# ...     def __init__(self): self.d = [1, 2, 3]  
+# ...     def __init__(self): self.d = [1, 2, 3]
 # >>>     def __setitem__(self, k, v):
 # ...         self.d[k] = v
 # >>> obj[0] = 99; print(obj[0])  # Mutate and check.
 
 # 7. __contains__ for 'in':
 # >>> class MyClass:
-# ...     def __init__(self): self.d = [1, 2, 3]  
+# ...     def __init__(self): self.d = [1, 2, 3]
 # >>>     def __contains__(self, i):
 # ...         return i in self.d
 # >>> 2 in obj  # True.
 
 # 8. __iter__ for looping:
 # >>> class MyClass:
-# ...     def __init__(self): self.d = [1, 2, 3]  
+# ...     def __init__(self): self.d = [1, 2, 3]
 # >>>     def __iter__(self):
 # ...         return iter(self.d)
 # >>> for x in obj: print(x)  # Iterates over d.
 
 # 9. Context manager: __enter__ and __exit__:
 # >>> class MyClass:
-# ...     def __init__(self): self.d = [1, 2, 3]  
+# ...     def __init__(self): self.d = [1, 2, 3]
 # >>>     def __enter__(self):
 # ...         self.backup = self.d.copy()  # Backup
 # ...         return self
@@ -407,15 +384,10 @@
 
 # 10. __call__ to make obj callable:
 # >>> class MyClass:
-# ...     def __init__(self): self.d = [1, 2, 3]  
+# ...     def __init__(self): self.d = [1, 2, 3]
 # >>>     def __call__(self, *a):
 # ...         print("Called with:", a)
 # >>> obj(42, "foo")  # Like a function.
-
-
-
-
-
 
 
 # ================== LESSON 3: INTUITIVE CODING PATTERNS =========================
@@ -456,7 +428,7 @@
 # >>> del l[1:3] # removes slice from 1 to 3; calls l.__delitem__(slice(1,3,None))
 # >>> l
 # ['A', 'e', 'h']
-# 
+#
 # # TUPLES (immutable sequences -- no in-place mods, ops create new tuples)
 # >>> t = ('a', 'b', 'c', 'd', 'e')
 # # read
@@ -484,7 +456,7 @@
 # # delete -- can't in place, no __delitem__; fake with slicing (new tuple)
 # >>> t[:1] + t[2:] # "ac"; __getitem__ and __add__
 # ('a', 'c')
-# 
+#
 # # STRINGS (immutable sequences -- similar to tuples)
 # >>> s = "abcde"
 # # read
@@ -515,7 +487,7 @@
 # >>> s = "abc" # reset for this example
 # >>> s[:1] + s[2:] # "ac"; again, __getitem__ and __add__
 # 'ac'
-# 
+#
 # # SETS (mutable but unordered -- no indexing/slicing, so CRUD is different)
 # >>> se = {'a', 'b', 'c'}
 # # read -- no indices, just membership/iteration
@@ -543,11 +515,6 @@
 # >>> se.discard('z') # removes if exists, no error; method
 # >>> se.pop() # removes arbitrary element, returns it
 # 'A' # or whatever
-
-
-
-
-
 
 
 # Lesson 3.2: CRUD on mappings
@@ -583,11 +550,6 @@
 # 7
 # >>> d
 # {'a': 10, 'b': 2, 'c': 3, 'd': 4, 'e': 5}
-
-
-
-
-
 
 
 # Lesson 3.3: LOOPS
@@ -665,11 +627,6 @@
 # Total volume of all boxes: 27 cubic units
 
 
-
-
-
-
-
 # Lesson 3.4: DECORATORS and CONTEXT MANAGERS
 # Look, in the real world, your functions aren't living in isolation—they're part
 # of an ecosystem. Sometimes you need to add behavior around them without hacking
@@ -730,11 +687,6 @@
 # 1.00012345678  # or similar
 
 
-
-
-
-
-
 # Lesson 3.5: * AND ** SYNTAX IN FUNCTIONS - DON'T SCREW THIS UP
 # --------------------------------------------------------------------------------
 
@@ -788,11 +740,6 @@
 # TypeError—don't be stupid.
 
 
-
-
-
-
-
 # ================== LESSON 4: PANDAS =========================
 # Lesson 4.1: PRE-PANDAS - PART I - ZIP LIKE A KERNEL HACKER
 # --------------------------------------------------------------------------------
@@ -819,12 +766,12 @@
 # >>> zipped = zip(names, ages)
 # >>> print(zipped)
 # <zip object at 0x778e75e65d40>
-# Why this crap? Zip doesn't build the whole damn list in memory upfront—it's a 
-# lazy iterator, like a generator that yields pairs on demand. Efficient as hell 
-# for big data, doesn't waste RAM like some bloated user-space app. But to see 
-# the contents, you gotta consume it by turning it into a list or looping over 
-# it. That's why we do print(list(zipped))—forces it to spit out all the pairs. 
-# Pro tip: once you consume it (like with list()), it's empty, gone, like a 
+# Why this crap? Zip doesn't build the whole damn list in memory upfront—it's a
+# lazy iterator, like a generator that yields pairs on demand. Efficient as hell
+# for big data, doesn't waste RAM like some bloated user-space app. But to see
+# the contents, you gotta consume it by turning it into a list or looping over
+# it. That's why we do print(list(zipped))—forces it to spit out all the pairs.
+# Pro tip: once you consume it (like with list()), it's empty, gone, like a
 # kernel buffer after a read. If you need it again, zip anew or copy the list.
 # >>> print(list(zipped))
 # [('Alice', 30), ('Bob', 25), ('Charlie', 35)]
@@ -863,20 +810,15 @@
 # [(1, 4, 7), (2, 5, 8), (3, 6, 9)]
 
 
-
-
-
-
-
 # Lesson 4.2: PRE-PANDAS - PART II - 1D VS MULTI-DIMENSIONAL DATA
 # --------------------------------------------------------------------------------
 # Now that you've got zip under your belt, let's distinguish between one-dimensional
 # and multi-dimensional data. This ain't rocket science, but screw it up and your
 # code's a mess. We'll mimic Pandas Series and DataFrames basics without the bloat.
-# "Better" structure depends on data: 
-# - use simple lists for 1d data 
+# "Better" structure depends on data:
+# - use simple lists for 1d data
 # - nested lists for 2d uniform grids without column labels (fast, simple);
-# - dicts of lists for 2d labeled data. 
+# - dicts of lists for 2d labeled data.
 
 # 1. Mappings (like Dicts) for One-Dimensional Data
 # Simple values with labels? Dict it. Like a 1D Series: fast key lookups, but if
@@ -887,7 +829,7 @@
 # >>> print(labelled_data)
 # {'a': 10, 'b': 20, 'c': 30}
 # Zipping to a list flattens to tuples—loses key-value distinction. Stick to dict.
-# 
+#
 # 2. Multi-Dimensional Data: Nested Lists vs. Dicts of Lists (DF Prototype)
 # For uniform grids (rows/cols all same length, no gaps—like matrices, image pixels,
 # game boards, or calendars), nested lists: compact, O(1) index access, easy math.
@@ -910,16 +852,11 @@
 # >>> print(table)
 # [['name', 'age'], ['Alice', 30], ['Bob', 25]]
 # Access: table[1][0] == 'Alice'.
-# 
+#
 # Dict of lists (column-oriented, via zip):
 # >>> dict_table = {label: list(values) for label, values in zip(col_labels, zip(row1, row2))}
 # >>> print(dict_table)
 # {'name': ['Alice', 'Bob'], 'age': [30, 25]}
-
-
-
-
-
 
 
 # Lesson 4.3: PRE-PANDAS PART III - MULTIDIMENSIONAL ARRAYS AND THEIR TRAVERSAL
@@ -935,7 +872,7 @@
 # REPL, fix the "problems" like a real hacker, or go back to single-dim lists
 # and cry.
 
-# 1. Exploring Dimensions: Basics of Multi-Dim Arrays 
+# 1. Exploring Dimensions: Basics of Multi-Dim Arrays
 # Nested lists as grids—index [row][col]. Update, identify, print like directory ops.
 # Why? Builds shape awareness—prevents "why out of bounds?" idiocy.
 # >>> building = [['Apt1', 'Alice'], ['Apt2', 'Bob'], ['Apt3', 'Empty']]  # Simple directory
@@ -957,7 +894,7 @@
 # Apt3: Empty
 # Apt4: Dave
 
-# 2. Columnar ZigZag and Reverse Traversal 
+# 2. Columnar ZigZag and Reverse Traversal
 # Traverse columns, reverse, zigzag—like scanning bookshelves without dropping books.
 # Why? Teaches non-linear traversal—useful for matrices in games/ML without full loops.
 # >>> bookshelf = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]  # Matrix as shelves
@@ -982,14 +919,14 @@
 # - Also, note that enumerate: wraps the list in an enumerate object that spits
 # out tuples: (index, item). In the below code, i is the row number (0-based),
 # row is the actual row.
-# >>> zig = [] 
+# >>> zig = []
 # >>> for i, row in enumerate(bookshelf):
 # ...     zig.extend(row if i % 2 == 0 else row[::-1])
 # ...
 # >>> zig
 # [1, 2, 3, 6, 5, 4, 7, 8, 9]
 
-# 3. Transposing Matrices 
+# 3. Transposing Matrices
 # Flip rows/columns—like rearranging seats without chaos.
 # Why? Data reshaping intuition—Pandas pivot/transpose builds on this.
 # >>> seating = [[1, 2, 3], [4, 5, 6]]  # Restaurant seats
@@ -1007,13 +944,13 @@
 # >>> reflect
 # [[4, 2], [3, 1]]  # Or proper reflect logic
 
-# 4. Checking Adjacent Cells in 2D Arrays 
+# 4. Checking Adjacent Cells in 2D Arrays
 # Check neighbors—up/down/left/right, like board games without off-board crashes.
 # Why? Graph-like traversal intuition—ML/Pandas adjacent ops.
 # >>> board = [
-# ...   ['.', 'X', '.'], 
-# ...   ['.', '.', 'X'], 
-# ...   ['X', '.', '.']] 
+# ...   ['.', 'X', '.'],
+# ...   ['.', '.', 'X'],
+# ...   ['X', '.', '.']]
 
 # Rule A: Now, let's consider adding this rule: You can move to or from a cell
 # if it’s horizontally adjacent to a 'X' occupied call.
@@ -1029,24 +966,24 @@
 # Rule B: Now, lets consider adding this rule: You can 'land' on any cell, that
 # is adjacent (horizontally, or vertically) to at least one X.
 
-# >>> landing = [(i,j) 
-# ...     for i in range(len(board)) 
-# ...     for j in range(len(board[0])) 
-# ...     if board[i][j] == '.' and any(board[x][y] == 'X' 
-# ...     for x,y in [(i-1,j),(i+1,j),(i,j-1),(i,j+1)] 
+# >>> landing = [(i,j)
+# ...     for i in range(len(board))
+# ...     for j in range(len(board[0]))
+# ...     if board[i][j] == '.' and any(board[x][y] == 'X'
+# ...     for x,y in [(i-1,j),(i+1,j),(i,j-1),(i,j+1)]
 # ...     if 0<=x<len(board) and 0<=y<len(board[0]))
-# ... ]  
+# ... ]
 # >>> landing
-# [(0, 0), (0, 2), (1, 0), (1, 1), (2, 1), (2, 2)] 
+# [(0, 0), (0, 2), (1, 0), (1, 1), (2, 1), (2, 2)]
 
 # Rule C: A cell's strategic value is the count of its empty neighbors i.e.
 # Neighbors with '.'.
 
-# >>> def strategic(i, j): 
-# ...     return sum(1 
-# ...          for dx,dy in [(-1,0),(1,0),(0,-1),(0,1)] 
+# >>> def strategic(i, j):
+# ...     return sum(1
+# ...          for dx,dy in [(-1,0),(1,0),(0,-1),(0,1)]
 # ...          if 0<=i+dx<len(board) and 0<=j+dy<len(board[0]) and board[i+dx][j+dy] == '.'
-# ...      ) 
+# ...      )
 # >>> strategic(1,1)
 # 2
 
@@ -1062,12 +999,12 @@
 # ...             return (x,y)
 # ...
 # >>> next_move(0,0)
-# (0, 1) 
+# (0, 1)
 # >>> next_move(0,2)
 # (1, 2)
 
 
-# 5. Navigating Adjacent Cells in Grid 
+# 5. Navigating Adjacent Cells in Grid
 # Traverse adj with diagonals, elevation logic—like pathfinding without getting lost.
 # Why? BFS/DFS intuition for grids—Pandas spatial crap.
 # >>> grid = [[1,2,3], [4,5,6], [7,8,9]]  # Elevation grid
@@ -1114,13 +1051,6 @@
 # ...
 # >>> ascend_mountain((0,0))
 # [(0,0), (2,2)]  # Path to peak
-
-
-
-
-
-
-
 
 
 # Lesson 4.4: PRE-PANDAS PART 4 - HASHMAPS AND THEIR USE FOR EFFICIENT DATA ACCESS
@@ -1226,11 +1156,6 @@
 # There, now hashmaps won't make you look like a newbie. Builds on 4.1—dicts for access, ready for Pandas internals. Use lists for lookups now, and your code deserves a panic. Hack on, or go maintain Perl.
 
 
-
-
-
-
-
 # Lesson 4.5: PANDAS BASICS - NOW WITH STEROIDS
 # --------------------------------------------------------------------------------
 
@@ -1328,12 +1253,6 @@
 # c    50.0
 # d     NaN
 # dtype: float64
-
-
-
-
-
-
 
 
 # Lesson 4.6: INSPECTING DATAFRAMES - DON'T BE BLIND, YOU MORON
@@ -1468,12 +1387,6 @@
 # Name: count, dtype: int64
 
 
-
-
-
-
-
-
 # Lesson 4.7: PANDAS ADVANCED - STOP BEING A DATA TOURIST
 # --------------------------------------------------------------------------------
 
@@ -1576,11 +1489,6 @@
 # Name: col1, dtype: float64
 
 
-
-
-
-
-
 # Lesson 4.8: APPENDING COLUMNAR DATA - ADD COLUMNS WITHOUT BLOATING
 # --------------------------------------------------------------------------------
 
@@ -1666,11 +1574,6 @@
 # Column add mismatches length? Error—align or fill NaN.
 # Mixed dtypes? Falls to object—slow, like 4.3 warnings.
 # >>> df['short_col'] = [1, 2]  # Length mismatch? Boom—ValueError
-
-
-
-
-
 
 
 # Lesson 4.9: LOOPING OVER ROWS AND COLUMNS - DON'T, UNLESS YOU'RE AN IDIOT
@@ -1761,12 +1664,6 @@
 # >>> raw = df.to_numpy()
 # >>> %timeit for row in raw: pass  # Faster loop, but still avoid
 # 12.3 µs ± 0.45 µs per loop
-
-
-
-
-
-
 
 
 # Lesson 4.10: NUMPY DEEP DIVE - THE ARRAY ENGINE UNDER PANDAS
@@ -1861,11 +1758,6 @@
 # array([10, 20, 30])
 
 # There, now you get why NumPy is the unsung hero—your 4.1 patterns on steroids, prepping for Pandas DFs not sucking. Loop over arrays manually now, and I'll disown you like a bad driver patch. Hack on, or go optimize BASIC code.
-
-
-
-
-
 
 
 # Lesson 4.11: LEVERAGING NUMPY ON PANDAS - DON'T WASTE THE DAMN ENGINE
@@ -2005,205 +1897,3 @@
 # >>> raw[0] = 99
 # >>> df['col1'][0]  # Changed!
 # 99
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"""
-
-
-
-
-
-
-
-
-# 3.3: Splitting Advanced Tasks into Smaller Pieces
-
-Learn how to break down complex tasks into manageable sub-tasks. This course will help you master the skills necessary to effectively structure, divide, and implement each part of advanced coding problems. You'll also focus on merging sub-task solutions into a cohesive whole.
-
-Course details
-
-Unit 1
-3 practices
-39 min
-Efficient Data Processing in Social Networking Logs Analysis
-Preview
-Email Organizer
-Online Programming Competition Analysis
-Book Borrowing Duration Analysis In Library Logs
-
-Unit 2
-3 practices
-39 min
-Exploring Diagonal Matrix Traversal Techniques
-Preview
-Zigzag Matrix Traversal and Negative Number Indices
-Spiral Traversal and Vowel Positions in a Grid
-Prime Number Identification in Matrix Zigzag Traversal
-
-Unit 3
-3 practices
-39 min
-Combining Submatrices for Unified Solutions
-Preview
-Interleaving Columns from Submatrices
-Boundary Layer Extraction and Concatenation from Two Matrices
-Swapping Submatrices Within a 2D Matrix
-
-Unit 4
-3 practices
-39 min
-Parsing Complex Strings into Nested Dictionaries and Updating Values
-Preview
-Parsing and Updating a Nested JSON Object in Python
-User Data Processing and Updating via Nested String Conversion
-Parsing and Updating Nested User Data
-
-
-
-
-
-
-
-
-
-
-
-
-# 3.4: Writing Optimal Algos Using HashMaps, HashSets, and TwoPointer
-# techniques
-
-Delve into the essentials of optimal programming algorithms involving HashMaps, HashSets, and two-pointer techniques. Enhance your skills in data structure optimization and streamline problem-solving methods.
-
-Course details
-
-Unit 1
-3 practices
-39 min
-Complexity Analysis: A Quick Reminder
-Preview
-Summing Integers Between Two Numbers
-Finding Minimum Absolute Difference in an Array
-Closest Pair Mapping in Arrays
-
-Unit 2
-3 practices
-39 min
-Optimizing Performance with HashSets in Python
-Preview
-Finding Common Characters with Sets
-Efficient Presence Checking in Celestial Body Lists
-Movie Recommendation Algorithm with Sets
-
-Unit 3
-3 practices
-39 min
-Optimizing Array Analysis with HashMaps
-Preview
-String Partitioning by Unique Characters
-Character Removal for Minimal Word Count
-Finding the Minimum Distance Between Word Occurrences in a List
-
-Unit 4
-3 practices
-39 min
-Efficient Pair Sum Identification with the Two-Pointer Technique
-Preview
-Identifying Pairs with Zero Sum Using Two-Pointer Technique
-Finding Maximum Sum Subarray Using Two-pointer Technique
-Finding the Longest Subarray with a Specified Sum Using Two-Pointer Technique
-
-Unit 5
-3 practices
-39 min
-Manipulating Arrays with Hashing and Two Pointers Technique
-Preview
-Array Transformation Based on Closest Half-value Criterion
-Finding the Most Influential Person in a Network
-Longest Substring with At Most K Distinct Characters
-
-
-
-
-
-
-
-
-# 3.5: Maximizing Efficiency in Problem Solving Techniques
-
-
-This comprehensive course incorporates unique problem-solving approaches and analyzing techniques that extend beyond core programming. Topics include optimizing brute force methods, dealing with combinatorial problems, and utilizing heaps and sorted lists effectively.
-
-Course details
-
-Unit 1
-3 practices
-39 min
-Estimating Algorithm Processing Time and Optimizing Brute-Force Solutions by Picking Optimal Variable for Brute Force
-Preview
-Finding a Pair with Target Sum Using Hashmap Optimization
-Player Score Lookup Through ID Queries
-Finding Pair Sums in Two Arrays
-
-Unit 2
-3 practices
-39 min
-Optimizing Range Query Solutions with Precalculation Techniques
-Preview
-Maximal Cumulative Sum in Array for Given Queries
-Finding the Length of a Substring After Removing Certain Characters
-Finding Divisors of the Closest Perfect Square
-
-Unit 3
-3 practices
-39 min
-Combinatorial Pair Analysis in Large Datasets
-Preview
-Counting Distinct Pairs with Absolute Difference More Than 10
-Counting Pairs with Equal Values in an Array
-Three-Letter Combination Count from String
-
-Unit 4
-3 practices
-39 min
-Efficient Median Calculation for Array Prefixes Using Heaps
-Preview
-Implementing Heap Operations on a Set of Numbers
-Heap Manipulation for Data Querying
-Finding the floor(k/3)-th Smallest Number in Each Prefix
-
-Unit 5
-3 practices
-39 min
-Efficient Set Operations with Sorted Data Structures
-Preview
-Finding Smallest Absolute Distance Between Added Numbers
-Managing Operations on A Sorted List
-Interval Management with SortedLists in Python
-
-"""
