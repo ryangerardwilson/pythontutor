@@ -22,7 +22,6 @@
         coords = (10, 20)
         prefs = {"os": "Linux"}
         idiots = {"user1", "user2"}
-        hell = frozenset(["debug", "monday"])
         r = range(5)
 
         # Modules
@@ -38,6 +37,8 @@
 
     def extended_primitives_and_types():
         
+        hell = frozenset(["debug", "monday"])
+
         # Binary types
         b = b'hello'
         ba = bytearray(b'hello')
