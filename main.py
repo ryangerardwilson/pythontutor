@@ -5,11 +5,11 @@ import os
 import shutil
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
-tutorial_path = os.path.join(script_dir, "tutorial.py")
+tutorial_path = os.path.join(script_dir, "tutorial.md")
 
 if not os.path.exists(tutorial_path):
     print(
-        f"No tutorial.py in {script_dir}? What kind of half-assed setup is this? Clone properly or GTFO."
+        f"No tutorial.md in {script_dir}? What kind of half-assed setup is this? Clone properly or GTFO."
     )
     exit(1)
 
@@ -20,7 +20,7 @@ with open(tutorial_path, "r", encoding="utf-8") as f:
 def main():
     # Copy to temp so you can fuck it up without mercy. Fresh each time.
     with tempfile.NamedTemporaryFile(
-        mode="w", suffix=".py", encoding="utf-8", delete=False
+        mode="w", suffix=".md", encoding="utf-8", delete=False
     ) as tmp:
         tmp.write(original_content)
         temp_file = tmp.name

@@ -1,225 +1,121 @@
-#!/usr/bin/env python3
-"""
-===============================================================================
-        = W e l c o m e t o t h e P Y T H O N T U T O R A D V A N C E D =
-===============================================================================
+# PYTUTOR
 
-    This is a no-bullshit Python tutor ripped off from that VimTutor madness,
-    but for Python newbies who think 'print("hello")' is rocket science. Cooked
-    up because stock tutorials bore me to tears with their hand-holding crap.
-    Lessons 1-6: Basics you'll actually use without wanting to kernel-panic.
-    Lesson 7: Where we get real—decorators, context managers, and other
-    wizardry that makes your code not suck. Edit this file in your editor of
-    choice (vim, duh), fill in the blanks as told, save, then run 'python
-    this_file.py' to see if you're not a complete idiot. It'll execute
-    everything and spit out results or errors (errors mean you fucked up—fix
-    it). Each run starts fresh if you copy from original, but experiment or die
-    bored.  Takes 30-45 mins if you're not spacing out. Make a copy to trash;
-    this one's your boot camp. Type the code, run it, feel the burn—or just
-    read like a wimp and wonder why your scripts segfault.  Hit your editor,
-    scroll to Lesson 1.1, edit that shit, save, run from terminal.  Let's make
-    you not a scripting zombie.  NOTE: Everything below is commented out.
-    Uncomment sections as you go through lessons. Only your uncommented code
-    will run—no spam, just your glorious output or spectacular crashes.
-    Uncomment imports, prints, whatever. Start with Lesson 1.1: remove the #
-    from the print line and fix it.
+## PART I: CONVENTIONAL CORE
 
-    First off, if you're going to mess around with this in the Python REPL like
-    a sane person, set it up properly with vi editing mode.
+### 1.1. Primitives, Types and Pure Syntax
 
-    - Step 1: Create or edit your ~/.pythonrc.py file (yeah, Python runs this
-      on interactive startup). Fire up your editor—use vim, obviously—and add
-      this:
-
-    import readline
-    readline.parse_and_bind('set editing-mode vi')
-
-    - Step 2: Make sure this gets loaded every time you start Python
-      interactively.  Add this line to your ~/.bashrc (or .bash_profile if
-      you're on some weird setup):
-
-    export PYTHONSTARTUP=~/.pythonrc.py
-
-    - Step 3: Then source your bashrc to apply it immediately: source ~/.bashrc
-
-    Now, drop into the Python REPL (just type 'python' or 'python3' in your
-    terminal), and start typing in these examples one by one.
-
-"""
-# ================== LESSON 1: TYPES ==================
-# Lesson 1.1: PRINTING PYTHON TYPES
-#
-# Types: Every single thing in Python is an object, and every object has a
-# type—check it with type(some_shit), which spits back the class that owns it.
-# And get this: types themselves are objects too, created by the metaclass type
-# (yeah, it's turtles all the way down, you recursive nightmare).
-#
-# --------------------------------------------------------------------------------
-# 1. Define basic types, including the ironic type of type:
-# >>> x = type
-# >>> type(x) # Oh, the irony: <class 'type'>
-# <class 'type'>
-# >>> nothing = None
-# >>> type(nothing) # NoneType
-# <class 'NoneType'>
-# >>> is_sane = False
-# >>> type(is_sane) # bool
-# <class 'bool'>
-# >>> age = 55
-# >>> type(age) # int
-# <class 'int'>
-# >>> pi = 3.14159
-# >>> type(pi) # float
-# <class 'float'>
-# >>> z = 3 + 4j
-# >>> type(z) # complex
-# <class 'complex'>
-# >>> name = "Linus"
-# >>> type(name) # str
-# <class 'str'>
-#
-# # 2. Collections:
-# >>> bugs = [42, "panic", 0.1]
-# >>> type(bugs) # list
-# <class 'list'>
-# >>> coords = (10, 20)
-# >>> type(coords) # tuple
-# <class 'tuple'>
-# >>> prefs = {"os": "Linux"}
-# >>> type(prefs) # dict
-# <class 'dict'>
-# >>> idiots = {"user1", "user2"}
-# >>> type(idiots) # set
-# <class 'set'>
-# >>> hell = frozenset(["debug", "monday"])
-# >>> type(hell) # frozenset
-# <class 'frozenset'>
-# >>> r = range(5)
-# >>> type(r) # range
-# <class 'range'>
-#
-# # 3. Binary stuff:
-# >>> b = b'hello'
-# >>> type(b) # bytes
-# <class 'bytes'>
-# >>> ba = bytearray(b'hello')
-# >>> type(ba) # bytearray
-# <class 'bytearray'>
-# >>> mv = memoryview(ba)
-# >>> type(mv) # memoryview
-# <class 'memoryview'>
-#
-# # 4. Functions and classes:
-# >>> def foo(): pass
-# ...
-# >>> func = foo
-# >>> type(func) # function
-# <class 'function'>
-#
-# >>> class Dog:
-# ... def __init__(self, name): self.name = name
-# ... def bark(self): print(f"{self.name} woofs!")
-# ...
-# >>> type(Dog) # type (the class itself)
-# <class 'type'>
-# >>> dog = Dog("Fido")
-# >>> type(dog) # Dog (instance)
-# <class '__main__.Dog'>
-#
-# # 5. Modules are types too—import one and weep at the consistency:
-# >>> import math
-# >>> m = math
-# >>> type(m) # module
-# <class 'module'>
-#
-# # 6. If you're too lazy to check one by one, dump 'em all (but you should've explored already):
-# >>> for var, val in sorted(locals().items()):
-# ... if not var.startswith('__'):
-# ... print(f"{var}:\t{val}\t{type(val).__name__}")
+    import math
 
 
-# ============= LESSON 1.2: TYPES VERSUS SYNTAX  =====================
-#
-# Python's got two big buckets: objects (which all have types, as we've beaten
-# into your skull in the last lesson), and syntax (the control flow crap like
-# keywords, operators, and punctuation that glues it all together without
-# turning your code into a syntax-error shitstorm).
-#
-# - Objects/Types: The meat—ints, strings, classes, your barking dog instances,
-# enums, functions, everything you can assign to a variable, pass around, or
-# type()-check. These are runtime citizens, born from classes (which are types
-# themselves, remember?).
-#
-# - Pure Syntactical Control Flow Voodoo: The skeleton—keywords ("for", "if",
-# "def", "class"), operators ("+", "+=", "and", "in"), delimiters (colons,
-# parens, commas), and indentation (yeah, that whitespace heresy). This shit
-# doesn't exist at runtime; it's compile-time fairy dust that tells Python how
-# to interpret and execute your objects. Try type(if) or type(+)—SyntaxError
-# city, because they're not objects, they're grammar rules etched in stone by
-# Guido's unholy hand.
-#
-# import math as m                 # import, as
-# import asyncio
-# from sys import version          # from ... import
-#
-# async def demo(x: int = 5):      # async, def, :, =, pass
-#     pass
-#
-# class Dummy:                     # class
-#     def method(self): return 42  # return
-#
-# try: 4 + 5                       # try
-# except Exception as e: print(e)  # except, as
-# finally: print(7)                # finally
-#
-# i, x = 5, 10                     # , and =
-# for i in range(x):               # for, in
-#     if x > 0 and x != 0:
-#         continue                 # continue
-#     elif x <= 0:
-#         raise ValueError("Oops") # raise
-#     else: break                  # break
-#
-# while i < 3 or i == 2: i += 1    # while, <, or, ==
-#
-# with open('temp.txt','w') as f:  # with, as
-#     f.write(str(i))
-#
-# assert x is not None             # assert, is not
-# f = lambda y: y+1                # lambda
-# print(f"X: {x}")                 # f-string, {}
-#
-# del x                            # del
-#
-# g_var = 10
-# def outer():
-#     global g_var; g_var += 1     # global
-#     nl = 5
-#     def inner():
-#         nonlocal nl; nl += 1     # nonlocal
-#         yield g_var              # yield
-#     return inner
-# print(next(outer()()))
-#
-# def decorator(fn):
-#     return lambda *a,**k: fn(*a,**k)    # lambda
-# @decorator                              # @ before the decorator
-# def some_coroutine(): return "done"
-#
-# async def runner():
-#     await demo()                # await
-#     await asyncio.sleep(0)
-#     print("await")
-# asyncio.run(runner())
-# --------------------------------------------------------------------------------
-# # While this will show the type
-# >>> type(5)
-# # This will throw an invalid syntax error, because + is not a type
-# >>> type(+)
-#   File "<stdin>", line 1
-#     type(+)
-#           ^
-# SyntaxError: invalid syntax
+    def conventioncal_core_primitives_and_types():
+
+        # Primitives—the basic building blocks
+        nothing = None 
+        is_sane = False 
+        age = 55 
+        pi = 3.14159 
+        z = 3 + 4j 
+        name = "Linus"
+        
+        # Now other types
+        bugs = [42, "panic", 0.1]
+        coords = (10, 20)
+        prefs = {"os": "Linux"}
+        idiots = {"user1", "user2"}
+        hell = frozenset(["debug", "monday"])
+        r = range(5)
+
+        # Modules
+        m = math
+        # And the meta twist: type of type
+        x = type
+        
+        print("Dump all:")
+        for var, val in sorted(locals().items()):
+            if not var.startswith('__'):
+                print(f"{var}: {val} ({type(val).__name__})")
+
+
+    def extended_primitives_and_types():
+        
+        # Binary types
+        b = b'hello'
+        ba = bytearray(b'hello')
+        mv = memoryview(ba)
+        
+        # Functions and classes
+        def foo(): pass
+        func = foo
+        
+        class Dog:
+            def __init__(self, name): self.name = name
+            def bark(self): print(f"{self.name} woofs!")
+        
+        dog = Dog("Fido")
+        
+      
+    import math as m                 # import, as
+    import asyncio
+    from sys import version          # from ... import
+
+
+    def pure_syntax():
+        
+        async def demo(x: int = 5):      # async, def, :, =, pass
+            pass
+        
+        class Dummy:                     # class
+            def method(self): return 42  # return
+        
+        try: 4 + 5                       # try
+        except Exception as e: print(e)  # except, as
+        finally: print(7)                # finally
+        
+        i, x = 5, 10                     # , and =
+        for i in range(x):               # for, in
+            if x > 0 and x != 0:
+                continue                 # continue
+            elif x <= 0:
+                raise ValueError("Oops") # raise
+            else: break                  # break
+        
+        while i < 3 or i == 2: i += 1    # while, <, or, ==
+        
+        with open('temp.txt','w') as f:  # with, as
+            f.write(str(i))
+        
+        assert x is not None             # assert, is not
+        f = lambda y: y+1                # lambda
+        print(f"X: {x}")                 # f-string, {}
+        
+        del x                            # del
+        
+        g_var = 10
+        def outer():
+            global g_var; g_var += 1     # global
+            nl = 5
+            def inner():
+                nonlocal nl; nl += 1     # nonlocal
+                yield g_var              # yield
+            return inner
+        print(next(outer()()))
+        
+        def decorator(fn):
+            return lambda *a,**k: fn(*a,**k)    # lambda
+        @decorator                              # @ before the decorator
+        def some_coroutine(): return "done"
+        
+        async def runner():
+            await demo()                # await
+            await asyncio.sleep(0)
+            print("await")
+        asyncio.run(runner())
+
+    if __name__ == "__main__":
+        conventional_core_primitives_and_types()
+        extended_primitives_and_types()
+        pure_syntax()
+
 
 
 # ============= LESSON 1.3: BUILT-IN INTROSPECTION TOOLS =====================
